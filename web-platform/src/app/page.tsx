@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import InputField from '@/components/input-field';
 import Button from '@/components/button';
@@ -10,8 +11,15 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { FORGOTPASSWORD_ROUTE, SINGUP_ROUTE } from '@/utils/navigation';
 import RepeatedLogo from '@/components/repeated-logo';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const toggleCheckbox = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <div>
       <div className="flex flex-col lg:flex-row bg-black text-secondary">
@@ -39,11 +47,20 @@ export default function Home() {
 
             <div className="flex justify-between items-center mb-6 text-sm">
               <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="appearance-none w-5 h-5 border-2 border-primary rounded-md focus:ring-0 checked:after:content-['✔'] checked:after:text-primary checked:after:block checked:after:leading-4 checked:after:text-center cursor-pointer"
-                />
-                <label className="ml-2 text-sm text-secondary">
+                <div
+                  className={`w-5 h-5 flex items-center justify-center border-2 border-primary rounded-md cursor-pointer ${
+                    isChecked ? 'bg-transparent' : 'bg-transparent'
+                  }`}
+                  onClick={toggleCheckbox}
+                >
+                  {isChecked && (
+                    <FontAwesomeIcon icon={faCheck} className="text-primary" />
+                  )}
+                </div>
+                <label
+                  className="ml-2 text-sm text-secondary"
+                  onClick={toggleCheckbox}
+                >
                   Remember me
                 </label>
               </div>

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import InputField from '@/components/input-field';
 import Button from '@/components/button';
@@ -12,9 +12,15 @@ import {
 import { INDEX_ROUTE, OTP_SIGNUP_ROUTE } from '@/utils/navigation';
 import { useRouter } from 'next/navigation';
 import RepeatedLogo from '@/components/repeated-logo';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
   const router = useRouter();
+  const [isChecked, setIsChecked] = useState(false);
+
+  const toggleCheckbox = () => {
+    setIsChecked(!isChecked);
+  };
 
   const onClickSignUp = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -70,13 +76,22 @@ const SignUp = () => {
 
               <div className="mb-6 text-sm">
                 <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="appearance-none w-5 h-5 border-2 border-primary rounded-md focus:ring-0 checked:after:content-['✔'] checked:after:text-primary checked:after:block checked:after:leading-4 checked:after:text-center cursor-pointer"
-                  />
+                  <div
+                    className={`w-5 h-5 flex items-center justify-center border-2 border-primary rounded-md cursor-pointer ${
+                      isChecked ? 'bg-transparent' : 'bg-transparent'
+                    }`}
+                    onClick={toggleCheckbox}
+                  >
+                    {isChecked && (
+                      <FontAwesomeIcon
+                        icon={faCheck}
+                        className="text-primary"
+                      />
+                    )}
+                  </div>
                   <label
-                    htmlFor="remember"
                     className="ml-2 text-sm text-secondary"
+                    onClick={toggleCheckbox}
                   >
                     Remember me
                   </label>
