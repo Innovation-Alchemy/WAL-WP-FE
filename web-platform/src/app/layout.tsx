@@ -34,8 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <NavBar />
-        {children}
+        <div className="lg:flex lg:flex-col lg:h-[100vh]">
+          <NavBar />
+          <main className="lg:flex-grow lg:overflow-hidden">{children}</main>
+        </div>
+
         <Footer />
       </body>
     </html>

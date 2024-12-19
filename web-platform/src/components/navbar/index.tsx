@@ -38,8 +38,8 @@ const NavBar = () => {
             <Image
               src="/images/Logo.png"
               alt="Logo"
-              layout="fill"
               objectFit="contain"
+              fill
               priority
             />
           </Link>

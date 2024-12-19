@@ -41,7 +41,7 @@ const HobbiesPage = () => {
     <div className="flex flex-col lg:flex-row bg-black text-secondary">
       <RepeatedLogo />
 
-      <div className="w-full lg:w-1/2 h-screen flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-20 xl:px-32 2xl:px-60">
+      <div className="w-full lg:w-1/2 h-screen  flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-20 xl:px-32 2xl:px-60">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 leading-snug">
           Let’s find out your taste, what you’re into, what a perfect weekend
           sounds like
