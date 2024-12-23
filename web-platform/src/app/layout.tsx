@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
-import { RiveNavBar } from '@/riveComponents/navBar';
+import { RiveNavBar } from '@/rive-components/navBar';
 import Footer from '@/components/footer';
 
 // const geistSans = Geist({

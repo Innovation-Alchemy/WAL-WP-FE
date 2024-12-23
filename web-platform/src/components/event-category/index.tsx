@@ -1,24 +1,33 @@
 import React from 'react';
-import { RiveEventCard } from '@/riveComponents/event-card';
+import { RiveEventCard } from '@/rive-components/event-card';
 
 interface EventCategoryProps {
   title: string;
-  events: number[];
 }
 
-const EventCategory: React.FC<EventCategoryProps> = ({ title, events }) => {
-  return (
-    <div className="w-full p-4">
-      <h2 className="text-xl font-bold mb-4 text-primary">{title}</h2>
+const mockEvents = Array.from({ length: 8 }, (_, i) => ({ id: i + 1 }));
 
-      <div className="flex gap-4 overflow-x-auto scrollbar-thin items-center transition-all duration-300 hover:pb-52">
-        {events.map((_, index) => (
-          <div key={index} className="flex-shrink-0 w-64 h-40">
+const EventCategory: React.FC<EventCategoryProps> = ({ title }) => {
+  return (
+    <section className="px-6 mb-28">
+      <h2 className="mb-4 text-xl font-bold text-primary">{title}</h2>
+      <div className="flex gap-4 overflow-x-auto overflow-y-hidden">
+        {mockEvents.map((event) => (
+          <div
+            key={event.id}
+            className="
+              w-64      
+              h-40      
+              flex-shrink-0
+              transition-transform
+              duration-300
+          "
+          >
             <RiveEventCard />
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
