@@ -1,13 +1,7 @@
 'use client';
-import {
-  useRive,
-  Layout,
-  Fit,
-  decodeFont,
-} from '@rive-app/react-canvas';
+import { useRive, Layout, Fit, decodeFont } from '@rive-app/react-canvas';
 
 export const RiveTicketingMap = ({}) => {
-
   const { RiveComponent, rive } = useRive({
     src: '/rive/events/ticketing.riv',
     artboard: 'Stage',
@@ -17,7 +11,7 @@ export const RiveTicketingMap = ({}) => {
     }),
     autoplay: true,
     assetLoader: (asset, bytes) => {
-     if (asset.isFont) {
+      if (asset.isFont) {
         fontAsset(asset);
         return true;
       } else {
@@ -27,7 +21,7 @@ export const RiveTicketingMap = ({}) => {
   });
 
   return (
-    <div className="event-map">
+    <div className="event-map mx-auto">
       <RiveComponent />
     </div>
   );
@@ -39,7 +33,6 @@ const fontAsset = (asset: any) => {
     font.unref();
   });
 };
-
 
 export default function App() {
   return (

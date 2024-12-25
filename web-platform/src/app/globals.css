@@ -34,6 +34,28 @@ body {
 }
 
 .event-map {
-  height: 300px;
-  width: 300px;
+  height: 450px;
+  width: 450px;
+  margin: 0 auto; /* Center the map horizontally */
+}
+
+@media (max-width: 1024px) {
+  .event-map {
+    height: 350px;
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .event-map {
+    height: 300px;
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-map {
+    height: 250px;
+    width: 250px;
+  }
 }

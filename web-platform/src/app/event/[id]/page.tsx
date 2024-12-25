@@ -43,7 +43,7 @@ const EventPage = () => {
         backgroundImage={event.backgroundImage}
       />
 
-      <div className="flex flex-col justify-center items-center min-h-[350px]">
+      <div className="flex flex-col justify-center items-center lg:min-h-[450px] pt-8">
         <RiveTicketingMap />
       </div>
 
