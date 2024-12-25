@@ -9,7 +9,7 @@ const mockEvents = Array.from({ length: 8 }, (_, i) => ({ id: i + 1 }));
 
 const EventCategory: React.FC<EventCategoryProps> = ({ title }) => {
   return (
-    <section className="px-6 mb-28">
+    <section className="px-6 mb-24">
       <h2 className="mb-4 text-xl font-bold text-primary">{title}</h2>
       <div className="flex gap-4 overflow-x-auto overflow-y-hidden">
         {mockEvents.map((event) => (
@@ -19,8 +19,6 @@ const EventCategory: React.FC<EventCategoryProps> = ({ title }) => {
               w-64      
               h-40      
               flex-shrink-0
-              transition-transform
-              duration-300
           "
           >
             <RiveEventCard />

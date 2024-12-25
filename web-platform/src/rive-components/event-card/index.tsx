@@ -7,15 +7,11 @@ import {
   ImageAsset,
   decodeFont,
 } from '@rive-app/react-canvas';
-import ReactDOM from 'react-dom';
 
 import pictures from '../../utils/eventPics';
-import { useEffect, useRef, useState } from 'react';
 
 export const RiveEventCard = ({}) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const { RiveComponent, rive } = useRive({
+  const { RiveComponent } = useRive({
     src: '/rive/events/card.riv',
     artboard: 'Card',
     stateMachines: 'Card SM',
@@ -41,17 +37,7 @@ export const RiveEventCard = ({}) => {
     },
   });
 
-  useEffect(() => {
-    if (containerRef.current && rive) {
-      rive.resizeDrawingSurfaceToCanvas();
-    }
-  }, [rive]);
-
-  return (
-    <div ref={containerRef} className="event-card">
-      <RiveComponent />
-    </div>
-  );
+  return <RiveComponent className="event-card" />;
 };
 const fontAsset = (asset: any) => {
   fetch('/rive/font/Inter-594377.ttf').then(async (res) => {
@@ -79,9 +65,5 @@ const assignImageAsset = (asset: ImageAsset) => {
 };
 
 export default function App() {
-  return (
-    <div>
-      <RiveEventCard />
-    </div>
-  );
+  return <RiveEventCard />;
 }

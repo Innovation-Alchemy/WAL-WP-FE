@@ -13,6 +13,7 @@ export default {
         foreground: 'var(--foreground)',
         primary: '#E63946',
         secondary: '#FEF2F3',
+        hero: '#B3222D',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

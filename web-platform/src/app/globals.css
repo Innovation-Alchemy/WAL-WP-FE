@@ -27,8 +27,13 @@ body {
 }
 
 .event-card:hover {
-  height: 350px;
+  height: 360px;
   position: absolute;
   z-index: 50;
   transform: translateY(-90px);
+}
+
+.event-map {
+  height: 300px;
+  width: 300px;
 }
