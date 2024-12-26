@@ -9,30 +9,15 @@ import { useState } from 'react';
 
 interface EventHeroProps {
   title: string;
-  categories: string[];
-  dateFrom: string;
-  dateTo: string;
-  timeFrom: string;
-  timeTo: string;
-
-  location: string;
+  subtitle: string;
   address: string;
-  description: string;
-  additionalInfo: string;
   backgroundImage: string;
 }
 
 const EventHero: React.FC<EventHeroProps> = ({
   title,
-  categories,
-  dateFrom,
-  dateTo,
-  timeFrom,
-  timeTo,
-  location,
+  subtitle,
   address,
-  description,
-  additionalInfo,
   backgroundImage,
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -42,7 +27,7 @@ const EventHero: React.FC<EventHeroProps> = ({
   };
 
   return (
-    <div className="relative h-screen md:h-[550px] text-secondary">
+    <div className="relative h-[550px] md:h-[500px] text-secondary">
       <div className="absolute inset-0">
         <Image
           src={backgroundImage}
@@ -56,48 +41,18 @@ const EventHero: React.FC<EventHeroProps> = ({
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
       </div>
 
-      <div className="relative z-10 px-6 lg:px-32 pt-48 lg:w-4/6">
+      <div className="relative z-10 px-6 md:px-24 justify-center flex flex-col top-80 min-h-fit">
         <h1 className="text-4xl font-extrabold">{title}</h1>
-        <p className=" mb-6">
-          {categories.map((category, index) => (
-            <span key={index} className="text-sm font-bold">
-              {category}
-              {index < categories.length - 1 && ' / '}
-            </span>
-          ))}
-        </p>
+        <h2 className="text-xl">{subtitle}</h2>
 
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 text-sm mb-4">
-          <div className="flex flex-col">
-            <span className="font-bold">Date</span>
-            <div className="flex items-center space-x-1">
-              <p>{dateFrom}</p>
-              <FontAwesomeIcon icon={faArrowRight} className="w-3 h-3" />
-              <p>{dateTo}</p>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold">Time</span>
-            <div className="flex items-center space-x-1">
-              <p>{timeFrom}</p>
-              <FontAwesomeIcon icon={faArrowRight} className="w-3 h-3" />
-              <p>{timeTo}</p>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold">{location}</span> {address}
-          </div>
+        <div className="py-2">
+          <p>{address}</p>
         </div>
 
-        <p className="text-sm md:text-base leading-relaxed mb-4">
-          {description}
-        </p>
-
-        <p className="text-sm font-semibold text-gray-300">{additionalInfo}</p>
-
-        <div className="">
+        <div className="flex items-center space-x-2 py-3">
+          <p className="font-bold">Bookmark for later</p>
           <button
-            className="text-white bg-transparent py-2"
+            className="text-secondary"
             onClick={toggleBookmark}
             aria-label="Toggle Bookmark"
           >

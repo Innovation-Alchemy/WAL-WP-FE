@@ -11,8 +11,8 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const AboutOrganizer = () => {
   return (
-    <div className="px-12 md:px-20 lg:px-60 mb-12">
-      <p className="text-secondary text-sm py-2">About Organizer</p>
+    <div>
+      <p className="text-primary text py-2 font-bold">About Organizer</p>
       <div className="flex space-x-2">
         <div className="text-primary flex items-center justify-center relative w-[20px] h-[20px]">
           <Image
@@ -39,16 +39,24 @@ const AboutOrganizer = () => {
       </p>
 
       <div className="flex space-x-4">
-        <Link href="https://facebook.com" aria-label="Facebook">
+        <Link href="https://facebook.com" aria-label="Facebook" target="_blank">
           <FontAwesomeIcon icon={faFacebook} className="w-4 h-4" />
         </Link>
-        <Link href="https://instagram.com" aria-label="Instagram">
+        <Link
+          href="https://instagram.com"
+          aria-label="Instagram"
+          target="_blank"
+        >
           <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />
         </Link>
-        <Link href="https://wa.me" aria-label="WhatsApp">
+        <Link href="https://wa.me" aria-label="WhatsApp" target="_blank">
           <FontAwesomeIcon icon={faWhatsapp} className="w-4 h-4" />
         </Link>
-        <Link href="mailto:info@wearelebanon.com" aria-label="Email">
+        <Link
+          href="mailto:info@wearelebanon.com"
+          aria-label="Email"
+          target="_blank"
+        >
           <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4" />
         </Link>
       </div>
