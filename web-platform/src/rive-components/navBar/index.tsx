@@ -32,7 +32,7 @@ const onRiveEventReceived = (riveEvent : any) => {
   console.log(eventData);
   const eventProperties = eventData.properties;
   if (eventData.type === RiveEventType.General && eventData.name === "Events") {
-    // window.location.href = "/events";
+    window.location.href = "/events";
   } else if (eventData.type === RiveEventType.General && eventData.name === "Store") {
     window.location.href = "/store";
   }
