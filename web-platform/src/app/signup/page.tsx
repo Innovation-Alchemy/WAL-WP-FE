@@ -9,14 +9,30 @@ import {
   faFacebook,
   faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
-import { INDEX_ROUTE, OTP_SIGNUP_ROUTE } from '@/utils/navigation';
+import {
+  HOBBIES_ROUTE,
+  INDEX_ROUTE,
+  OTP_SIGNUP_ROUTE,
+} from '@/utils/navigation';
 import { useRouter } from 'next/navigation';
 import RepeatedLogo from '@/components/repeated-logo';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import GenderInput from '@/components/gender-input';
+import BirthdateInput from '@/components/birthdate-input';
+import PhoneNumberInput from '@/components/phonenumber-input';
+import { countryOptions } from '@/utils/country-codes';
 
 const SignUp = () => {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedGender, setSelectedGender] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [countryCode, setCountryCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handleDateChange = (date: string) => {
+    setBirthdate(date);
+  };
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -24,7 +40,7 @@ const SignUp = () => {
 
   const onClickSignUp = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    router.push(OTP_SIGNUP_ROUTE);
+    router.push(HOBBIES_ROUTE);
   };
 
   return (
@@ -32,7 +48,7 @@ const SignUp = () => {
       <div className="flex flex-col lg:flex-row bg-black text-secondary">
         <RepeatedLogo />
 
-        <div className="w-full lg:w-1/2 h-screen flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-20 xl:px-32 2xl:px-60">
+        <div className="w-full container mx-auto lg:w-1/2 min-h-screen flex flex-col justify-center px-6 lg:px-8 xl:px-32 2xl:px-48 my-20 lg:my-12">
           <div>
             <div className="py-6">
               <h1 className="text-2xl md:text-3xl font-bold mb-2">
@@ -60,21 +76,55 @@ const SignUp = () => {
                 </div>
               </div>
 
-              <div className="mb-4">
+              <div className="py-2">
+                <label className="block mb-2 font-bold text-sm md:text-base">
+                  Phone Number
+                </label>
+                <PhoneNumberInput
+                  countryCode={countryCode}
+                  onCountryCodeChange={setCountryCode}
+                  phoneNumber={phoneNumber}
+                  onPhoneNumberChange={setPhoneNumber}
+                  countryOptions={countryOptions}
+                />
+              </div>
+
+              <div className="flex space-x-6 py-2">
+                <div className="w-1/2">
+                  <label className="block mb-2 font-bold text-sm md:text-base">
+                    Birthdate
+                  </label>
+                  <BirthdateInput
+                    date={birthdate}
+                    onDateChange={handleDateChange}
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label className="block mb-2 font-bold text-sm md:text-base">
+                    Gender
+                  </label>
+                  <GenderInput
+                    selectedGender={selectedGender}
+                    onGenderChange={setSelectedGender}
+                  />
+                </div>
+              </div>
+
+              <div className="py-2">
                 <label className="block mb-2 font-bold text-sm md:text-base">
                   Email
                 </label>
                 <InputField type="email" placeholder="MoeElias@hotmail.com" />
               </div>
 
-              <div className="mb-4">
+              <div className="py-2">
                 <label className="block mb-2 font-bold text-sm md:text-base">
                   Password
                 </label>
                 <InputField type="password" placeholder="Enter Your Password" />
               </div>
 
-              <div className="mb-6 text-sm">
+              <div className="py-2 mb-4 text-sm">
                 <div className="flex items-center">
                   <div
                     className={`w-5 h-5 flex items-center justify-center border-2 border-primary rounded-md cursor-pointer ${

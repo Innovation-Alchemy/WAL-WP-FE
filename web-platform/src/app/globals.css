@@ -30,7 +30,7 @@ body {
   height: 360px;
   position: absolute;
   z-index: 50;
-  transform: translateY(-90px);
+  transform: translateY(-80px);
 }
 
 .event-map {
@@ -38,6 +38,11 @@ body {
   width: 550px;
   margin: 0 auto; /* Center the map horizontally */
 }
+
+/* .product-card {
+  height: 300px;
+  width: 200px;
+} */
 
 @media (max-width: 1024px) {
   .event-map {

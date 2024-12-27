@@ -18,7 +18,7 @@ const SelectableButton: React.FC<SelectableButtonProps> = ({
     <button
       onClick={onClick}
       className={`flex items-center space-x-2 px-2 py-1 md:px-4 md:py-2 text-sm font-bold rounded-md transition-all ${
-        isSelected ? 'bg-secondary text-black' : 'bg-primary text-secondary'
+        isSelected ? 'bg-secondary text-hero' : 'bg-primary text-secondary'
       }`}
     >
       <FontAwesomeIcon icon={isSelected ? faCheck : faPlus} />

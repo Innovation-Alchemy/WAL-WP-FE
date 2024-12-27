@@ -8,8 +8,8 @@ const StoreCategoryFilter: React.FC<StoreCategoryFilterProps> = ({
   categories,
 }) => {
   return (
-    <div className="bg-black text-secondary py-8">
-      <div className="flex flex-col lg:flex-row items-center justify-around w-full">
+    <div className="py-8 container mx-auto px-12">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full">
         <h2 className="text-2xl font-bold text-primary mb-4 lg:mb-0">
           Shop By Category
         </h2>

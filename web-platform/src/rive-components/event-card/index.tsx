@@ -9,9 +9,13 @@ import {
 } from '@rive-app/react-canvas';
 
 import pictures from '../../utils/eventPics';
+import { useEffect, useRef, useState } from 'react';
 
 export const RiveEventCard = ({}) => {
-  const { RiveComponent } = useRive({
+  const [isOpen, setIsOpen] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const { RiveComponent, rive } = useRive({
     src: '/rive/events/card.riv',
     artboard: 'Card',
     stateMachines: 'Card SM',
@@ -19,6 +23,7 @@ export const RiveEventCard = ({}) => {
       fit: Fit.Layout,
     }),
     autoplay: true,
+
     // Callback handler to pass in that dictates what to do with an asset found in
     // the Rive file that's being loaded in
     assetLoader: (asset, bytes) => {
@@ -37,7 +42,41 @@ export const RiveEventCard = ({}) => {
     },
   });
 
-  return <RiveComponent className="event-card" />;
+  useEffect(() => {
+    if (rive) {
+      const isOpenInput = rive
+        .stateMachineInputs('Card SM')
+        .find((input) => input.name === 'isOpen');
+      if (isOpenInput) {
+        isOpenInput.value = isOpen; // Sync the state machine with the component state
+      }
+    }
+  }, [isOpen, rive]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className="event-card relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <RiveComponent />
+    </div>
+  );
 };
 const fontAsset = (asset: any) => {
   fetch('/rive/font/Inter-594377.ttf').then(async (res) => {

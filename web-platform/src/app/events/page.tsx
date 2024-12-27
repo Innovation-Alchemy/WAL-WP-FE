@@ -6,7 +6,7 @@ const EventsPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <RiveHero />
-      <div className="py-10 flex flex-col justify-between">
+      <div className="pt-12 pb-20 flex flex-col justify-between">
         <EventCategory title="Concerts" />
         <EventCategory title="Stand Up" />
         <EventCategory title="Festival" />
