@@ -35,7 +35,7 @@ export const RiveProductCard = ({
     artboard: 'Main',
     stateMachines: 'Main SM',
     layout: new Layout({
-      fit: Fit.Layout,
+      fit: Fit.Contain,
     }),
     autoplay: true,
     assetLoader: (asset, bytes) => {
@@ -114,7 +114,7 @@ export const RiveProductCard = ({
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
     >
-      <RiveComponent style={{ height: '590px', width: '240px' }} />
+      <RiveComponent style={{ height: '590px', width: '280px' }} />
     </div>
   );
 };
