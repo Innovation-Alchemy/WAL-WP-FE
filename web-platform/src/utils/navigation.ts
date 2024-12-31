@@ -9,3 +9,4 @@ export const OTP_SIGNUP_ROUTE = '/otp-signup';
 export const HOBBIES_ROUTE = '/hobbies';
 export const APP_ROUTE = '/app';
 export const VERIFY_EMAIL_ROUTE = '/verify-email';
+export const EVENT_DETAILS_ROUTE = '/event/[id]';

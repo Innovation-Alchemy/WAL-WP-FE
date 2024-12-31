@@ -39,7 +39,7 @@ export const RiveNavBar = ({}) => {
 
   const onRiveEventReceived = (riveEvent: any) => {
     const eventData = riveEvent.data;
-    console.log(eventData);
+    // console.log(eventData);
     const eventProperties = eventData.properties;
     if (
       eventData.type === RiveEventType.General &&

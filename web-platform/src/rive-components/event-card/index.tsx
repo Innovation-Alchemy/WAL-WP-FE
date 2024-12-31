@@ -11,11 +11,11 @@ import {
 
 import pictures from '../../utils/eventPics';
 import { useEffect, useRef, useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 export const RiveEventCard = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-
+  const router = useRouter();
   const { RiveComponent, rive } = useRive({
     src: '/rive/events/card.riv',
     artboard: 'Card',
@@ -34,6 +34,9 @@ export const RiveEventCard = ({}) => {
       // the asset, as opposed to the runtime
       if (asset.isImage && asset.name === 'Thumbnail') {
         assignImageAsset(asset as ImageAsset);
+        return true;
+      }else if (asset.isImage && asset.name === 'Shadow Thumbnail') {
+        assignShadow(asset as ImageAsset);
         return true;
       } else if (asset.isFont) {
         fontAsset(asset);
@@ -74,7 +77,7 @@ export const RiveEventCard = ({}) => {
       className="event-card relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      // onClick={() => setIsOpen(!isOpen)}
+      onClick={() => router.push('/event/1')}
     >
       <RiveComponent />
     </div>
@@ -95,14 +98,47 @@ const fontAsset = (asset: any) => {
 // Load asset by using decodeImage API to feed to a
 // setRenderImage API on the asset provided in assetLoader
 
-const assignImageAsset = (asset: ImageAsset) => {
-  fetch(pictures.image1)
+// const assignImageAsset = (asset: ImageAsset) => {
+//   fetch(pictures.image1)
+//     .then(async (res) => {
+//       const image = await decodeImage(new Uint8Array(await res.arrayBuffer()));
+//       asset.setRenderImage(image);
+//       image.unref(); // Clean up references when not needed anymore
+//     })
+//     .catch((error) => console.error('Error loading image:', error));
+// };
+const assignShadow = (asset: ImageAsset) => {
+  fetch(pictures.shadow)
     .then(async (res) => {
       const image = await decodeImage(new Uint8Array(await res.arrayBuffer()));
       asset.setRenderImage(image);
       image.unref(); // Clean up references when not needed anymore
     })
-    .catch((error) => console.error('Error loading image:', error));
+    .catch((error) => console.error('Error loading shadow image:', error));
+};
+let lastSelectedKey: string | null = null; // Keeps track of the last selected picture
+
+const assignImageAsset = (asset: ImageAsset) => {
+  const pictureKeys = Object.keys(pictures);
+
+  // Filter out the last selected key
+  const filteredKeys = pictureKeys.filter((key) => key !== lastSelectedKey);
+
+  // Select a random key from the remaining keys
+  const randomKey = filteredKeys[Math.floor(Math.random() * (filteredKeys.length - 1)) + 1];
+  const randomImageUrl = pictures[randomKey as keyof typeof pictures];
+
+  // Update the last selected key
+  lastSelectedKey = randomKey;
+
+  fetch(randomImageUrl)
+    .then(async (res) => {
+      const imageBlob = await res.blob();
+      const image = await decodeImage(new Uint8Array(await imageBlob.arrayBuffer()));
+      asset.setRenderImage(image);
+      image.unref(); // Clean up references when not needed anymore
+    })
+    .catch((error) => console.error('Error loading or scaling image:', error));
 };
 
 export default function App() {

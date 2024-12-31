@@ -6,6 +6,7 @@ let pictures = {
   image5: '/rive/hero/pic 5-3026597.jpeg',
   image6: '/rive/hero/pic 6-3026598.jpeg',
   image7: '/rive/hero/pic 7-3026599.jpeg',
+  shadow: '/rive/hero/Shadow-3046155.png',
 };
 
 export default pictures;
