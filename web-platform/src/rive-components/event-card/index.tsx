@@ -6,6 +6,7 @@ import {
   decodeImage,
   ImageAsset,
   decodeFont,
+  Alignment,
 } from '@rive-app/react-canvas';
 
 import pictures from '../../utils/eventPics';
@@ -20,7 +21,8 @@ export const RiveEventCard = ({}) => {
     artboard: 'Card',
     stateMachines: 'Card SM',
     layout: new Layout({
-      fit: Fit.Layout,
+      fit: Fit.Contain,
+      alignment: Alignment.TopLeft,
     }),
     autoplay: true,
 
