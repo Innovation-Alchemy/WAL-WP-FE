@@ -11,7 +11,7 @@ const GenderInput: React.FC<GenderInputProps> = ({
 }) => {
   return (
     <div className="flex flex-wrap">
-      {['Male', 'Female', 'Other'].map((gender) => (
+      {['Male', 'Female'].map((gender) => (
         <label
           key={gender}
           className="flex items-center space-x-1 cursor-pointer text-sm md:text-base mr-3 mb-1"

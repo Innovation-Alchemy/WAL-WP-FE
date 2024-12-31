@@ -20,21 +20,46 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 .mainEventSection{
-  padding: 32px;
+  align-items: flex-start;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 10px;
   height: 232px;
+  justify-content: flex-start;
+  overflow-y: visible;
+  padding: 32px;
+  position: relative;
+  width: 100%;
 }
 .secondEventSection{
-  height: 270px;
+  align-content: center;
+  align-items: center;
   display: flex;
+  flex: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  height: 270px;
   justify-content: flex-start;
-  overflow: visible;
-  gap: 20px;
-
+  padding: 0;
+  position: relative;
+  width: min-content;
 
 }
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
 .eventCardMain{
-  height: 100%;
-  width: 100%;
+  flex: none;
+  height: 400px;
+  position: relative;
+  width: 260px;
 }
 .event-card {
   height: 400px;
@@ -42,7 +67,7 @@ body {
 }
 
 .event-card:hover {
-  z-index: 50;
+  z-index: 500;
 }
 
 .event-map {

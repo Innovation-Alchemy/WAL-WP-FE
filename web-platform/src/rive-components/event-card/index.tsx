@@ -74,7 +74,7 @@ export const RiveEventCard = ({}) => {
       className="event-card relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      onClick={() => setIsOpen(!isOpen)}
+      // onClick={() => setIsOpen(!isOpen)}
     >
       <RiveComponent />
     </div>

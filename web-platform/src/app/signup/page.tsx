@@ -4,19 +4,10 @@ import Link from 'next/link';
 import InputField from '@/components/input-field';
 import Button from '@/components/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faApple,
-  faFacebook,
-  faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
-import {
-  HOBBIES_ROUTE,
-  INDEX_ROUTE,
-  OTP_SIGNUP_ROUTE,
-} from '@/utils/navigation';
+// import { faApple, faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import {INDEX_ROUTE,VERIFY_EMAIL_ROUTE } from '@/utils/navigation';
 import { useRouter } from 'next/navigation';
 import RepeatedLogo from '@/components/repeated-logo';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import GenderInput from '@/components/gender-input';
 import BirthdateInput from '@/components/birthdate-input';
 import PhoneNumberInput from '@/components/phonenumber-input';
@@ -25,11 +16,16 @@ import { countryOptions } from '@/utils/country-codes';
 const SignUp = () => {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [countryCode, setCountryCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const baseURL = "http://localhost:8080";
   const handleDateChange = (date: string) => {
     setBirthdate(date);
   };
@@ -38,9 +34,58 @@ const SignUp = () => {
     setIsChecked(!isChecked);
   };
 
-  const onClickSignUp = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const validateInputs = () => {
+    if (!firstName || !lastName) return 'First Name and Last Name are required.';
+    if (!email) return 'Email is required.';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return 'Invalid email format.';
+    if (!password || password.length < 8) return 'Password must be at least 8 characters long.';
+    if (!selectedGender) return 'Gender is required.';
+    if (!birthdate) return 'Birthdate is required.';
+    if (!phoneNumber || !/^\d+$/.test(phoneNumber)) return 'Phone number must contain only digits.';
+    return null;
+  };
+
+  const handleSignUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    router.push(HOBBIES_ROUTE);
+
+    // Input Validation
+    const validationError = validateInputs();
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
+
+    const payload = {
+      name: `${firstName} ${lastName}`,
+      email,
+      password,
+      gender: selectedGender.toLowerCase(),
+      birthdate,
+      role: 'User',
+      phone_number: `${countryCode}${phoneNumber}`,
+    };
+    try {
+      const response = await fetch(`${baseURL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.message || 'An error occurred. Please try again.');
+        return;
+      }
+
+      // Redirect on success
+      router.push(VERIFY_EMAIL_ROUTE);
+    } catch (error) {
+      setErrorMessage('An unexpected error occurred. Please try again.');
+    }
   };
 
   return (
@@ -60,19 +105,33 @@ const SignUp = () => {
             </div>
 
             <form>
+              {errorMessage && (
+                <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+              )}
+
               <div className="flex space-x-6 mb-4">
                 <div className="w-1/2">
                   <label className="block mb-2 font-bold text-sm md:text-base">
                     First Name
                   </label>
-                  <InputField type="text" placeholder="Moe" />
+                  <InputField
+                    type="text"
+                    placeholder="Moe"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
                 </div>
 
                 <div className="w-1/2">
                   <label className="block mb-2 font-bold text-sm md:text-base">
                     Last Name
                   </label>
-                  <InputField type="text" placeholder="Elias" />
+                  <InputField
+                    type="text"
+                    placeholder="Elias"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
                 </div>
               </div>
 
@@ -114,41 +173,27 @@ const SignUp = () => {
                 <label className="block mb-2 font-bold text-sm md:text-base">
                   Email
                 </label>
-                <InputField type="email" placeholder="MoeElias@hotmail.com" />
+                <InputField
+                  type="email"
+                  placeholder="MoeElias@hotmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
 
               <div className="py-2">
                 <label className="block mb-2 font-bold text-sm md:text-base">
                   Password
                 </label>
-                <InputField type="password" placeholder="Enter Your Password" />
+                <InputField
+                  type="password"
+                  placeholder="Enter Your Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
 
-              <div className="py-2 mb-4 text-sm">
-                <div className="flex items-center">
-                  <div
-                    className={`w-5 h-5 flex items-center justify-center border-2 border-primary rounded-md cursor-pointer ${
-                      isChecked ? 'bg-transparent' : 'bg-transparent'
-                    }`}
-                    onClick={toggleCheckbox}
-                  >
-                    {isChecked && (
-                      <FontAwesomeIcon
-                        icon={faCheck}
-                        className="text-primary"
-                      />
-                    )}
-                  </div>
-                  <label
-                    className="ml-2 text-sm text-secondary"
-                    onClick={toggleCheckbox}
-                  >
-                    Remember me
-                  </label>
-                </div>
-              </div>
-
-              <Button text="Sign Up" fullWidth onClick={onClickSignUp} />
+              <Button text="Sign Up" fullWidth onClick={handleSignUp} />
 
               <p className="mt-4 text-center">
                 already have an account?{' '}
@@ -160,32 +205,6 @@ const SignUp = () => {
                 </Link>
               </p>
             </form>
-
-            <div className="flex justify-center mt-6 space-x-10">
-              <button className="flex items-center justify-center w-6 h-6 ">
-                <FontAwesomeIcon
-                  icon={faGoogle}
-                  className="text-secondary"
-                  size="lg"
-                />
-              </button>
-
-              <button className="flex items-center justify-center w-6 h-6 ">
-                <FontAwesomeIcon
-                  icon={faFacebook}
-                  className="text-secondary"
-                  size="lg"
-                />
-              </button>
-
-              <button className="flex items-center justify-center w-6 h-6 ">
-                <FontAwesomeIcon
-                  icon={faApple}
-                  className="text-secondary"
-                  size="lg"
-                />
-              </button>
-            </div>
           </div>
         </div>
       </div>
