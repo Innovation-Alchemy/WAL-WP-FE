@@ -16,7 +16,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-secondary py-8">
+    <footer className="bg-primary text-secondary py-8 ">
       <div className="container mx-auto px-48 justify-between hidden lg:flex">
         <div>
           <div className="flex items-center mb-4">
