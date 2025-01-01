@@ -15,7 +15,7 @@ export const RiveNavBar = ({}) => {
   const router = useRouter();
 
   const { rive, RiveComponent } = useRive({
-    src: '/rive/hero/hero.riv',
+    src: '/rive/hero/oldhero.riv',
     artboard: 'Nav Bar',
     stateMachines: 'Nav Bar SM',
     layout: new Layout({
