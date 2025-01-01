@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Button from '@/components/button';
 import RepeatedLogo from '@/components/repeated-logo';
 import SelectableButton from '@/components/selectable-button';
+import { useRouter } from 'next/navigation';
+import { EVENT_ROUTE } from '@/utils/navigation';
 
 const HOBBIES = [
   'Music',
@@ -28,7 +30,7 @@ const HOBBIES = [
 
 const HobbiesPage = () => {
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
-
+  const router = useRouter();
   const toggleHobby = (hobby: string) => {
     setSelectedHobbies((prev) =>
       prev.includes(hobby)
@@ -58,7 +60,7 @@ const HobbiesPage = () => {
           ))}
         </div>
 
-        <Button text="Continue" fullWidth />
+        <Button text="Continue" fullWidth onClick={() => router.push(EVENT_ROUTE)} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   ImageAsset,
   decodeFont,
   Alignment,
+  FontAsset,
 } from '@rive-app/react-canvas';
 
 import pictures from '../../utils/eventPics';

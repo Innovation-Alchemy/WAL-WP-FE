@@ -7,7 +7,7 @@ import RepeatedLogo from '@/components/repeated-logo';
 import { useRouter } from 'next/navigation';
 import { INDEX_ROUTE } from '@/utils/navigation';
 
-const verifyEmail = () => {
+const VerifyEmail = () => {
   const router = useRouter();
 
   return (
@@ -19,7 +19,7 @@ const verifyEmail = () => {
           Welcome To <br /> We Are Lebanon!
         </h1>
         <p className="text-sm md:text-base mb-6">
-          We have sent you an email to verify your account. Please Log In when after you verify your account.
+          We have sent you an email to verify your account. Please Log In after you verify your account.
         </p>
         <Button text="Continue" fullWidth onClick={() => router.push(INDEX_ROUTE)} />
       </div>
@@ -27,4 +27,4 @@ const verifyEmail = () => {
   );
 };
 
-export default verifyEmail;
+export default VerifyEmail;

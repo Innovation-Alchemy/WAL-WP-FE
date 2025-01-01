@@ -33,7 +33,7 @@ const AboutOrganizer = () => {
         gatherings, we specialize in seamless execution, innovative design, and
         unparalleled attention to detail. With a global network of partners and
         a passion for storytelling through events, we ensure every occasion
-        leaves a lasting impression. Whether it's orchestrating logistics,
+        leaves a lasting impression. Whether orchestrating logistics,
         curating bespoke experiences, or designing immersive spaces, We are
         Lebanon turns every event into a masterpiece.
       </p>
