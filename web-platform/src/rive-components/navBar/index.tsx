@@ -60,7 +60,7 @@ export const RiveNavBar = ({}) => {
     if (rive) {
       rive.on(EventType.RiveEvent, onRiveEventReceived);
     }
-  }, [rive]);
+  }, [rive, onRiveEventReceived]);
 
   const fontAsset = (asset: any) => {
     fetch('/rive/font/Inter-594377.ttf').then(async (res) => {
