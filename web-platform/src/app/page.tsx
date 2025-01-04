@@ -15,7 +15,7 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-  const baseURL = "http://localhost:8080";
+  const baseURL = "https://wal-wp-be.onrender.com";
   const router = useRouter();
 
   const toggleCheckbox = () => {
