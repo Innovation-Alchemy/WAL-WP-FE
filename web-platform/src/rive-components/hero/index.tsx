@@ -57,6 +57,7 @@ const assignImageAsset = (asset: ImageAsset) => {
     'pic 5': 'image5',
     'pic 6': 'image6',
     'pic 7': 'image7',
+    'pic 8': 'image8',
     'Shadow': 'shadow',
   };
 
