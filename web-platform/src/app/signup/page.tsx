@@ -5,7 +5,7 @@ import InputField from '@/components/input-field';
 import Button from '@/components/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faApple, faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import {INDEX_ROUTE,VERIFY_EMAIL_ROUTE } from '@/utils/navigation';
+import { INDEX_ROUTE, VERIFY_EMAIL_ROUTE } from '@/utils/navigation';
 import { useRouter } from 'next/navigation';
 import RepeatedLogo from '@/components/repeated-logo';
 import GenderInput from '@/components/gender-input';
@@ -25,7 +25,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const baseURL = "https://wal-wp-be.onrender.com";
+  const baseURL = 'https://wal-wp-be.onrender.com';
   const handleDateChange = (date: string) => {
     setBirthdate(date);
   };
@@ -35,14 +35,17 @@ const SignUp = () => {
   };
 
   const validateInputs = () => {
-    if (!firstName || !lastName) return 'First Name and Last Name are required.';
+    if (!firstName || !lastName)
+      return 'First Name and Last Name are required.';
     if (!email) return 'Email is required.';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) return 'Invalid email format.';
-    if (!password || password.length < 8) return 'Password must be at least 8 characters long.';
+    if (!password || password.length < 8)
+      return 'Password must be at least 8 characters long.';
     if (!selectedGender) return 'Gender is required.';
     if (!birthdate) return 'Birthdate is required.';
-    if (!phoneNumber || !/^\d+$/.test(phoneNumber)) return 'Phone number must contain only digits.';
+    if (!phoneNumber || !/^\d+$/.test(phoneNumber))
+      return 'Phone number must contain only digits.';
     return null;
   };
 
@@ -153,19 +156,18 @@ const SignUp = () => {
                   <label className="block mb-2 font-bold text-sm md:text-base">
                     Birthdate
                   </label>
-                  <BirthdateInput
-                    date={birthdate}
-                    onDateChange={handleDateChange}
-                  />
+                  <BirthdateInput onDateChange={handleDateChange} />
                 </div>
                 <div className="w-1/2">
                   <label className="block mb-2 font-bold text-sm md:text-base">
                     Gender
                   </label>
-                  <GenderInput
-                    selectedGender={selectedGender}
-                    onGenderChange={setSelectedGender}
-                  />
+                  <div className="flex items-center h-12">
+                    <GenderInput
+                      selectedGender={selectedGender}
+                      onGenderChange={setSelectedGender}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -193,7 +195,9 @@ const SignUp = () => {
                 />
               </div>
 
-              <Button text="Sign Up" fullWidth onClick={handleSignUp} />
+              <div className="pt-6">
+                <Button text="Sign Up" fullWidth onClick={handleSignUp} />
+              </div>
 
               <p className="mt-4 text-center">
                 already have an account?{' '}

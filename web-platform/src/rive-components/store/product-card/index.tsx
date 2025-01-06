@@ -109,12 +109,12 @@ export const RiveProductCard = ({
   return (
     <div
       ref={cardRef}
-      className="relative"
+      className="product-card relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
     >
-      <RiveComponent style={{ height: '590px', width: '280px' }} />
+      <RiveComponent />
     </div>
   );
 };

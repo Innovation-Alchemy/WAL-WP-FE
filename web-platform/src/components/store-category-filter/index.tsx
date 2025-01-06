@@ -17,7 +17,7 @@ const StoreCategoryFilter: React.FC<StoreCategoryFilterProps> = ({
           {categories.map((category, index) => (
             <button
               key={index}
-              className="bg-primary text-secondary py-2 px-4 rounded-md font-semibold hover:bg-red-400 transition duration-200"
+              className="bg-primary text-secondary py-2 px-6 rounded-md font-semibold hover:bg-red-400 transition duration-200"
             >
               {category}
             </button>
