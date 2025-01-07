@@ -1,8 +1,7 @@
 'use client';
-import { RiveProductCard } from '@/rive-components/store/product-card';
-import Rive from '@rive-app/react-canvas';
-import Link from 'next/link';
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { RiveProductCard } from '@/rive-components/store/product-card';
 
 type Product = { title: string; price: number; image: string };
 
@@ -24,22 +23,26 @@ const StoreSection: React.FC<StoreSectionProps> = ({ section }) => {
   };
 
   return (
-    <div className="container mx-auto px-32">
-      <div className="flex justify-between">
+    <div className="container mx-auto px-6 md:px-32">
+      <div className="flex justify-between items-center">
         <p className="py-2 text-primary text-lg font-bold">{section.title}</p>
         <Link href={`/store`} className="text-primary hover:underline">
           View More
         </Link>
       </div>
-      <div className="flex justify-between">
-        {section.products.map((product, index) => (
-          <RiveProductCard
-            key={index}
-            isActive={activeCardIndex === index}
-            onActivate={() => handleActivate(index)}
-            onDeactivate={() => handleDeactivate(index)}
-          />
-        ))}
+
+      <div className="product-section">
+        <div className="product-wrapper">
+          {section.products.slice(0, 4).map((product, index) => (
+            <div key={index} className="eventCardMain">
+              <RiveProductCard
+                isActive={activeCardIndex === index}
+                onActivate={() => handleActivate(index)}
+                onDeactivate={() => handleDeactivate(index)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

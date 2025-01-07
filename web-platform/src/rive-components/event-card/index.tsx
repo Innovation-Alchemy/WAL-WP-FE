@@ -36,7 +36,7 @@ export const RiveEventCard = ({}) => {
       if (asset.isImage && asset.name === 'Thumbnail') {
         assignImageAsset(asset as ImageAsset);
         return true;
-      }else if (asset.isImage && asset.name === 'Shadow Thumbnail') {
+      } else if (asset.isImage && asset.name === 'Shadow Thumbnail') {
         assignShadow(asset as ImageAsset);
         return true;
       } else if (asset.isFont) {
@@ -67,6 +67,7 @@ export const RiveEventCard = ({}) => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -126,7 +127,8 @@ const assignImageAsset = (asset: ImageAsset) => {
   const filteredKeys = pictureKeys.filter((key) => key !== lastSelectedKey);
 
   // Select a random key from the remaining keys
-  const randomKey = filteredKeys[Math.floor(Math.random() * (filteredKeys.length - 1)) + 1];
+  const randomKey =
+    filteredKeys[Math.floor(Math.random() * (filteredKeys.length - 1)) + 1];
   const randomImageUrl = pictures[randomKey as keyof typeof pictures];
 
   // Update the last selected key
@@ -135,13 +137,11 @@ const assignImageAsset = (asset: ImageAsset) => {
   fetch(randomImageUrl)
     .then(async (res) => {
       const imageBlob = await res.blob();
-      const image = await decodeImage(new Uint8Array(await imageBlob.arrayBuffer()));
+      const image = await decodeImage(
+        new Uint8Array(await imageBlob.arrayBuffer()),
+      );
       asset.setRenderImage(image);
       image.unref(); // Clean up references when not needed anymore
     })
     .catch((error) => console.error('Error loading or scaling image:', error));
 };
-
-export default function App() {
-  return <RiveEventCard />;
-}
