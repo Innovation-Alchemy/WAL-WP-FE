@@ -25,7 +25,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const baseURL = "http://localhost:8080";
+  const baseURL = "https://wal-wp-be.onrender.com";
   const handleDateChange = (date: string) => {
     setBirthdate(date);
   };
