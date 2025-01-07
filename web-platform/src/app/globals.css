@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #150d0d;
+  --background: black;
+  --foreground: black;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #150d0d;
-    --foreground: #ededed;
+    --background: black;
+    --foreground: black;
   }
 }
 
@@ -31,6 +31,7 @@ body {
   overflow-y: visible;
   position: relative;
   width: 100%;
+  /* margin-left: 30px; */
 }
 .secondEventSection {
   align-content: center;
@@ -44,15 +45,15 @@ body {
   justify-content: flex-start;
   padding: 0;
   position: relative;
-  width: min-content;
+  /* width: min-content; */
 }
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-  padding: 10px;
-  padding-right: 80px;
+  /* padding: 10px; */
+  padding-right: 40px;
   width: 100vw;
   overflow-x: scroll;
   scrollbar-width: none;
@@ -72,37 +73,26 @@ body {
   z-index: 500;
 }
 
-/* .mainProductSection {
-  align-items: flex-start;
-  display: flex;
-  flex: none;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  height: 232px;
-  overflow-y: visible;
-  position: relative;
-  width: 100%;
-} */
 .product-section {
   align-content: center;
   align-items: center;
   display: flex;
-  flex: none;
+  /* flex: none; */
   flex-direction: row;
   flex-wrap: nowrap;
   height: 300px;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   padding: 0;
-  position: relative;
+  /* position: relative; */
 }
 
-.product-wrapper {
+/* .product-wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   overflow-x: scroll;
   scrollbar-width: none;
-}
+} */
 
 .product-card {
   height: 400px;

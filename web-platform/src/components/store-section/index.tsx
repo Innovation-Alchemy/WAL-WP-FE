@@ -32,9 +32,9 @@ const StoreSection: React.FC<StoreSectionProps> = ({ section }) => {
       </div>
 
       <div className="product-section">
-        <div className="product-wrapper">
+        <div className="flex items-center overflow-x-scroll lg:overflow-x-hidden scrollbar-hide scrollbar-none">
           {section.products.slice(0, 4).map((product, index) => (
-            <div key={index} className="eventCardMain">
+            <div key={index}>
               <RiveProductCard
                 isActive={activeCardIndex === index}
                 onActivate={() => handleActivate(index)}

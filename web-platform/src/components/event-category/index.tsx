@@ -9,10 +9,10 @@ const mockEvents = Array.from({ length: 8 }, (_, i) => ({ id: i + 1 }));
 
 const EventCategory: React.FC<EventCategoryProps> = ({ title }) => {
   return (
-    <div className="mainEventSection px-6 md:px-8">
-      <h1 className="text-xl font-bold text-primary">{title}</h1>
+    <div className="mainEventSection">
+      <h1 className="text-xl font-bold text-primary px-4 md:px-8">{title}</h1>
       <div className="secondEventSection">
-        <div className="wrapper">
+        <div className="wrapper px-4 md:px-8">
           {mockEvents.map((event) => (
             <div key={event.id} className="eventCardMain">
               <RiveEventCard />

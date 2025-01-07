@@ -75,7 +75,7 @@ export const RiveNavBar = ({}) => {
     });
   };
 
-  return <RiveComponent style={{ width: '100%', height: '80px' }} />;
+  return <RiveComponent style={{ width: 'full', height: '80px' }} />;
 };
 export default function App() {
   return (
