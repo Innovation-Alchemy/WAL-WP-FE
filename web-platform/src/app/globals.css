@@ -31,7 +31,6 @@ body {
   overflow-y: visible;
   position: relative;
   width: 100%;
-  /* margin-left: 30px; */
 }
 .secondEventSection {
   align-content: center;
@@ -45,14 +44,12 @@ body {
   justify-content: flex-start;
   padding: 0;
   position: relative;
-  /* width: min-content; */
 }
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-  /* padding: 10px; */
   padding-right: 40px;
   width: 100vw;
   overflow-x: scroll;
@@ -70,7 +67,7 @@ body {
 }
 
 .event-card:hover {
-  z-index: 500;
+  z-index: 30;
 }
 
 .product-section {
@@ -85,14 +82,6 @@ body {
   padding: 0;
   /* position: relative; */
 }
-
-/* .product-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  overflow-x: scroll;
-  scrollbar-width: none;
-} */
 
 .product-card {
   height: 400px;

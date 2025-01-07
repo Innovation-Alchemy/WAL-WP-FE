@@ -43,7 +43,7 @@ export default function RootLayout({
 
         <Footer />
 
-        <div className="md:hidden bg-black fixed bottom-0 w-full z-10000">
+        <div className="md:hidden bg-black fixed bottom-0 w-full z-50">
           <RiveNavBar />
         </div>
       </body>
