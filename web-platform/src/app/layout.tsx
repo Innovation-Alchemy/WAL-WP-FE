@@ -34,17 +34,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <div className="relative lg:flex lg:flex-col">
+        <div className="relative lg:flex lg:flex-cols">
           <div className="hidden md:block md:absolute md:top-0 md:left-0 md:w-full md:z-50">
             <RiveNavBar />
           </div>
           <main className="lg:flex-grow lg:overflow-hidden">{children}</main>
-          <div className="block md:hidden bg-black">
-            <RiveNavBar />
-          </div>
         </div>
 
         <Footer />
+
+        <div className="md:hidden bg-black fixed bottom-0 w-full z-10000">
+          <RiveNavBar />
+        </div>
       </body>
     </html>
   );
