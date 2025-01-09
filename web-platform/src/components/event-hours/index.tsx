@@ -10,7 +10,7 @@ const EventHours: React.FC<EventHoursProps> = ({ hours }) => {
       <p className="font-bold text-primary py-2">Hours</p>
       <div>
         {hours.map((hour, index) => (
-          <p key={index} className="text-sm ">
+          <p key={index} className="text-sm text-secondary ">
             {hour}
           </p>
         ))}

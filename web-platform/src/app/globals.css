@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: black;
   --foreground: black;
 }
@@ -12,11 +12,12 @@
     --background: black;
     --foreground: black;
   }
-}
+} */
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  /* color: var(--foreground);
+  background: var(--background); */
+  background: black;
   font-family: Arial, Helvetica, sans-serif;
 }
 .mainEventSection {
@@ -84,7 +85,7 @@ body {
 }
 
 .product-card {
-  height: 400px;
+  height: 520px;
   width: 260px;
 }
 

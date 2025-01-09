@@ -26,16 +26,16 @@ const AboutOrganizer = () => {
         <p className="text-sm font-semibold">We Are Lebanon</p>
       </div>
 
-      <p className="text-sm py-4">
+      <p className="text-sm py-4 text-secondary">
         Crafting unforgettable moments, We are Lebanon is a leading event
         planning powerhouse known for transforming visions into reality. From
         large-scale corporate galas to vibrant festivals and exclusive private
         gatherings, we specialize in seamless execution, innovative design, and
         unparalleled attention to detail. With a global network of partners and
         a passion for storytelling through events, we ensure every occasion
-        leaves a lasting impression. Whether orchestrating logistics,
-        curating bespoke experiences, or designing immersive spaces, We are
-        Lebanon turns every event into a masterpiece.
+        leaves a lasting impression. Whether orchestrating logistics, curating
+        bespoke experiences, or designing immersive spaces, We are Lebanon turns
+        every event into a masterpiece.
       </p>
 
       <div className="flex space-x-4">

@@ -2,8 +2,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { RiveProductCard } from '@/rive-components/store/product-card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-type Product = { title: string; price: number; image: string };
+type Product = {
+  title: string;
+  price: number;
+  image: string;
+  category: string;
+};
 
 interface StoreSectionProps {
   section: { title: string; products: Product[] };
@@ -23,17 +30,17 @@ const StoreSection: React.FC<StoreSectionProps> = ({ section }) => {
   };
 
   return (
-    <div className="container mx-auto px-6 md:px-32">
+    <div className="container mx-auto px-6 md:px-32 py-2">
       <div className="flex justify-between items-center">
         <p className="py-2 text-primary text-lg font-bold">{section.title}</p>
-        <Link href={`/store`} className="text-primary hover:underline">
-          View More
-        </Link>
+        <p className="text-primary hover:underline">
+          Scroll <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+        </p>
       </div>
 
       <div className="product-section">
-        <div className="flex items-center overflow-x-scroll lg:overflow-x-hidden scrollbar-hide scrollbar-none">
-          {section.products.slice(0, 4).map((product, index) => (
+        <div className="flex items-center overflow-x-scroll scrollbar-hide scrollbar-none gap-3">
+          {section.products.map((product, index) => (
             <div key={index}>
               <RiveProductCard
                 isActive={activeCardIndex === index}
