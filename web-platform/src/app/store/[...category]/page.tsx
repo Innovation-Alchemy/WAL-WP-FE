@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { RiveHero } from '@/rive-components/hero';
 import { useParams, useSearchParams } from 'next/navigation';
 import { RiveProductCard } from '@/rive-components/store/product-card';
+import SortFilter from '@/components/sort-filter';
 
 const CategoryPage = () => {
   const searchParams = useSearchParams();
@@ -16,6 +17,10 @@ const CategoryPage = () => {
 
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
   const [columns, setColumns] = useState<number>(4);
+  const [sortOption, setSortOption] = useState<string>('Popular');
+  const [sortedProducts, setSortedProducts] = useState<any[]>(products);
+
+  const sortOptions = ['Popular', 'Price: Low to High', 'Price: High to Low'];
 
   const handleActivate = (index: number) => {
     setActiveCardIndex(index);
@@ -36,13 +41,11 @@ const CategoryPage = () => {
       else setColumns(4); // Extra-large screens
     };
 
-    // Initial check and event listener for resizing
     updateColumns();
     window.addEventListener('resize', updateColumns);
     return () => window.removeEventListener('resize', updateColumns);
   }, []);
 
-  // Split products into rows based on the number of columns
   const rows: any[][] = [];
   for (let i = 0; i < products.length; i += columns) {
     rows.push(products.slice(i, i + columns));
@@ -58,7 +61,13 @@ const CategoryPage = () => {
         <div className="flex flex-col md:flex-row md:py-12">
           <div className="w-full md:w-1/5 bg-primary h-35 md:h-[600px] rounded-lg"></div>
           <div className="w-full md:w-4/5 md:px-8 pt-8 md:pt-0">
-            <div className="bg-primary h-[50px] md:w-[200px] mx-12 md:mx-0"></div>
+            <div className=" mx-12 md:mx-0 mb-28">
+              <SortFilter
+                options={sortOptions}
+                selectedOption={sortOption}
+                onChange={setSortOption}
+              />
+            </div>
 
             <div className="md:hidden flex overflow-x-scroll overflow-y-hidden scrollbar-hide gap-4 relative">
               {products.map((product: any, index: number) => (
