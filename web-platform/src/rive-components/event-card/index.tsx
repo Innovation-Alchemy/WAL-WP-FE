@@ -62,7 +62,7 @@ export const RiveEventCard = ({}) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        setIsOpen(false); // Close the card when clicking outside
       }
     };
 
@@ -73,13 +73,21 @@ export const RiveEventCard = ({}) => {
     };
   }, []);
 
+  const handleCardClick = () => {
+    if (isOpen) {
+      // If the card is already open, redirect to the event page
+      router.push('/event/1');
+    } else {
+      // Otherwise, open the card
+      setIsOpen(true);
+    }
+  };
+
   return (
     <div
       ref={cardRef}
-      className="event-card relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-      onClick={() => router.push('/event/1')}
+      className={`event-card relative ${isOpen ? 'open' : ''}`}
+      onClick={handleCardClick}
     >
       <RiveComponent />
     </div>

@@ -67,8 +67,8 @@ body {
   width: 260px;
 }
 
-.event-card:hover {
-  z-index: 30;
+.event-card.open {
+  z-index: 30; /* Higher z-index when the card is open */
 }
 
 .product-section {
