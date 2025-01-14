@@ -90,22 +90,21 @@ body {
 }
 
 .event-map {
-  height: 550px;
-  width: 550px;
-  margin: 0 auto; /* Center the map horizontally */
+  height: 900px;
+  width: 900px;
 }
 
 @media (max-width: 1024px) {
   .event-map {
-    height: 450px;
-    width: 450px;
+    height: 650px;
+    width: 650px;
   }
 }
 
 @media (max-width: 768px) {
   .event-map {
-    height: 350px;
-    width: 350px;
+    height: 450px;
+    width: 450px;
   }
 }
 

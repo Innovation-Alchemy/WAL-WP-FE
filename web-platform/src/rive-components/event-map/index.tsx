@@ -21,7 +21,7 @@ export const RiveTicketingMap = ({}) => {
   });
 
   return (
-    <div className="event-map mx-auto">
+    <div className="event-map">
       <RiveComponent />
     </div>
   );
