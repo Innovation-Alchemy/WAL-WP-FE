@@ -109,7 +109,7 @@ export const RiveProductCard = ({
   return (
     <div
       ref={cardRef}
-      className={`product-card relative ${isActive ? 'z-50' : 'z-10'}`}
+      className={`product-card relative ${isActive ? 'z-50' : 'z-0'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}

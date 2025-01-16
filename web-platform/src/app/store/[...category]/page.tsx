@@ -84,7 +84,7 @@ const CategoryPage = () => {
               ))}
             </div>
 
-            <div className="py-12 hidden md:block">
+            <div className="hidden md:block">
               {rows.map((row, rowIndex) => (
                 <div key={rowIndex} className="flex h-[280px] gap-4">
                   {row.map((product, productIndex) => {

@@ -1,4 +1,5 @@
 'use client';
+import { useSearch } from '@/context/search-context';
 import { EVENT_ROUTE, STORE_ROUTE } from '@/utils/navigation';
 import {
   useRive,
@@ -11,8 +12,9 @@ import {
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export const RiveNavBar = ({}) => {
+export const RiveNavBar = () => {
   const router = useRouter();
+  const { isSearchOpen, setIsSearchOpen } = useSearch();
 
   const { rive, RiveComponent } = useRive({
     src: '/rive/navBar/nav_bar.riv',
@@ -39,6 +41,7 @@ export const RiveNavBar = ({}) => {
 
   const onRiveEventReceived = (riveEvent: any) => {
     const eventData = riveEvent.data;
+    console.log('Event received:', eventData);
     if (
       eventData.type === RiveEventType.General &&
       eventData.name === 'Events'
@@ -49,6 +52,10 @@ export const RiveNavBar = ({}) => {
       eventData.name === 'Store'
     ) {
       router.push(STORE_ROUTE);
+    } else if (eventData.name === 'SearchOpen') {
+      setIsSearchOpen(true);
+    } else if (eventData.name === 'SearchStart') {
+      setIsSearchOpen(false);
     }
   };
 
@@ -73,14 +80,25 @@ export const RiveNavBar = ({}) => {
     });
   };
 
-  return <RiveComponent style={{ width: 'full', height: '80px' }} />;
-};
-export default function App() {
   return (
     <div>
-      <div className="RiveContainer">
-        <RiveNavBar />
-      </div>
+      {isSearchOpen && (
+        <div
+          className={`
+          absolute top-0 right-10 mt-2
+          transform transition-transform duration-300 z-50
+          flex items-center
+          ${isSearchOpen ? 'translate-x-0' : 'translate-x-full'}
+        `}
+        >
+          <input
+            type="text"
+            placeholder="Search"
+            className="w-80 border-b-2 border-white bg-transparent text-white outline-none placeholder-gray-400 text-center"
+          />
+        </div>
+      )}
+      <RiveComponent style={{ width: '100%', height: '80px' }} />
     </div>
   );
-}
+};

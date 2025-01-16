@@ -48,20 +48,6 @@ const EventHero: React.FC<EventHeroProps> = ({
         <div className="py-2">
           <p>{address}</p>
         </div>
-
-        <div className="flex items-center space-x-2 py-3">
-          <p className="font-bold">Bookmark for later</p>
-          <button
-            className="text-secondary"
-            onClick={toggleBookmark}
-            aria-label="Toggle Bookmark"
-          >
-            <FontAwesomeIcon
-              icon={isBookmarked ? faBookmarkSolid : faBookmarkRegular}
-              className="w-6 h-6"
-            />
-          </button>
-        </div>
       </div>
     </div>
   );

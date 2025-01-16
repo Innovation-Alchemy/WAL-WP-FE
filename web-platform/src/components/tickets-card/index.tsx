@@ -10,12 +10,12 @@ interface TicketCardProps {
 }
 
 const TicketCard: React.FC<TicketCardProps> = ({
-  section,
   seats,
   date,
   startTime,
   endTime,
   totalPrice,
+  section,
 }) => {
   return (
     <div

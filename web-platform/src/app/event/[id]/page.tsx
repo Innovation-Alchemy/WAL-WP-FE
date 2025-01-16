@@ -9,6 +9,8 @@ import EventTags from '@/components/event-tags';
 import EventSelect from '@/components/event-select';
 import EventCard from '@/components/event-card';
 import TicketCard from '@/components/tickets-card';
+import TotalPriceCard from '@/components/total-price-card';
+import SingleDateTicketsCard from '@/components/single-ticket-card';
 
 interface Ticket {
   section: string;
@@ -96,20 +98,36 @@ const tickets = [
   },
   {
     section: 'A',
-    seat: 'A1',
-    date: '26-1',
-    startTime: '8:30 PM',
-    endTime: '10:30 PM',
-    price: 30,
+    seat: 'A23',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 50,
   },
   {
-    section: 'A',
-    seat: 'A2',
-    date: '26-1',
-    startTime: '8:30 PM',
-    endTime: '10:30 PM',
-    price: 30,
+    section: 'B',
+    seat: 'B3',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 40,
   },
+  // {
+  //   section: 'A',
+  //   seat: 'A1',
+  //   date: '26-1',
+  //   startTime: '8:30 PM',
+  //   endTime: '10:30 PM',
+  //   price: 30,
+  // },
+  // {
+  //   section: 'A',
+  //   seat: 'A2',
+  //   date: '26-1',
+  //   startTime: '8:30 PM',
+  //   endTime: '10:30 PM',
+  //   price: 30,
+  // },
   // {
   //   section: 'A',
   //   seat: 'A3',
@@ -218,7 +236,13 @@ const EventPage = () => {
     event.schedule[0].endTimes[0],
   );
 
+  const isSingleDate = event.schedule.length === 1;
   const groupedTickets = groupTickets(tickets);
+
+  const overallTotalPrice = groupedTickets.reduce(
+    (acc, group) => acc + group.totalPrice,
+    0,
+  );
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
@@ -296,18 +320,24 @@ const EventPage = () => {
             duration={event.duration}
             image={event.backgroundImage}
           />
-          {groupedTickets.map((group, index) => (
-            <TicketCard
-              key={index}
-              section={group.section}
-              seats={group.seats}
-              date={group.date}
-              startTime={group.startTime}
-              endTime={group.endTime}
-              totalPrice={`${group.totalPrice}$`}
-            />
-          ))}
           <GoogleMap />
+          {isSingleDate ? (
+            <SingleDateTicketsCard tickets={tickets} />
+          ) : (
+            groupedTickets.map((group, index) => (
+              <TicketCard
+                key={index}
+                section={group.section}
+                seats={group.seats}
+                date={group.date}
+                startTime={group.startTime}
+                endTime={group.endTime}
+                totalPrice={`${group.totalPrice}$`}
+              />
+            ))
+          )}
+
+          <TotalPriceCard totalPrice={`${overallTotalPrice}$`} />
         </div>
       </div>
 

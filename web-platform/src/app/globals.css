@@ -31,7 +31,7 @@ body {
   justify-content: flex-start;
   overflow-y: visible;
   position: relative;
-  width: 100%;
+  /* width: 100%; */
 }
 .secondEventSection {
   align-content: center;
@@ -45,6 +45,7 @@ body {
   justify-content: flex-start;
   padding: 0;
   position: relative;
+  width: 100%;
 }
 .wrapper {
   display: flex;
@@ -52,7 +53,7 @@ body {
   justify-content: flex-start;
   gap: 10px;
   padding-right: 40px;
-  width: 100vw;
+  width: 100%;
   overflow-x: scroll;
   scrollbar-width: none;
 }
@@ -81,7 +82,7 @@ body {
   height: 300px;
   /* justify-content: flex-start; */
   padding: 0;
-  /* position: relative; */
+  position: relative;
 }
 
 .product-card {
