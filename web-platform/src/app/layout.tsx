@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <SearchProvider>
-          <div className="relative lg:flex lg:flex-cols ">
+          <div className="relative lg:flex lg:flex-cols">
             <div className="hidden md:block md:absolute md:top-0 md:left-0 md:w-full z-50">
               <RiveNavBar />
             </div>

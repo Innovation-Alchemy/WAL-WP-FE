@@ -24,8 +24,8 @@ const EventsPage = () => {
       )}
 
       {isSearchOpen && (
-        <div className="flex pt-24 pb-24 gap-2 px-8 w-screen">
-          <div className="w-1/5 flex flex-col gap-4">
+        <div className="flex flex-col lg:flex-row pt-24 pb-24 gap-2 px-8 w-screen">
+          <div className="lg:w-1/5 flex flex-col gap-4">
             <GenreFilter />
 
             <RangeFilter
@@ -46,7 +46,7 @@ const EventsPage = () => {
               unit="$"
             />
           </div>
-          <div className="w-4/5">
+          <div className="lg:w-4/5">
             <EventCategory title="Concerts" />
             <EventCategory title="Stand Up" />
             <EventCategory title="Festival" />
