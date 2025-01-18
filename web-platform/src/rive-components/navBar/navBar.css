@@ -20,8 +20,16 @@
   top: 0;
   left: 0;
   right: 0;
-  /* border: 1px solid #fff; */
-  border-radius: 12px;
+  border-bottom: 1px solid #fff;
+}
+
+
+.AbsContainer.opening {
+  animation: slideVisible 0.4s ease-in-out forwards;
+}
+
+.AbsContainer.closing {
+  animation: slideHidden 0.4s ease-in-out forwards;
 }
 
 /* Keyframes */
@@ -40,8 +48,23 @@
   }
 }
 
+@keyframes slideHidden {
+  0% {
+    width: var(--w);
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0;
+  }
+
+  100% {
+    width: 0px;
+    opacity: 0;
+  }
+}
+
 /* Media */
-/* @media screen and (max-width:784px) { */
 @media screen and (max-width:999px) {
   .AbsContainer {
     right: -65px;

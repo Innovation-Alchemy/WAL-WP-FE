@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useSearch } from '@/context/search-context';
 import { EVENT_ROUTE, STORE_ROUTE } from '@/utils/navigation';
 import {
@@ -16,7 +17,7 @@ import "./navBar.css";
 export const RiveNavBar = () => {
   const router = useRouter();
   const { isSearchOpen, setIsSearchOpen } = useSearch();
-
+  const [isClosing, setIsClosing] = useState(false);
   const { rive, RiveComponent } = useRive({
     src: '/rive/navBar/nav_bar.riv',
     artboard: 'Nav Bar',
@@ -53,16 +54,16 @@ export const RiveNavBar = () => {
       eventData.name === 'Store'
     ) {
       router.push(STORE_ROUTE);
-    } else if (
-      eventData.type === RiveEventType.General &&
-      eventData.name === 'SearchOpen'
-    ) {
+    } else if (eventData.name === 'SearchOpen') {
+      setIsClosing(false);
       setIsSearchOpen(true);
-    } else if (
-      eventData.type === RiveEventType.General &&
-      eventData.name === 'SearchStart'
-    ) {
-      setIsSearchOpen(false);
+    } else if (eventData.name === 'SearchStart') {
+      setIsClosing(true);
+      // Wait for animation to complete before closing
+      setTimeout(() => {
+        setIsSearchOpen(false);
+        setIsClosing(false);
+      }, 400); // Match animation duration
     }
   };
 
@@ -92,7 +93,7 @@ export const RiveNavBar = () => {
       <RiveComponent style={{ width: '100%', height: '80px' }} />
 
       {isSearchOpen && (
-        <div className="AbsContainer z-50 h-full flex items-center border-white">
+        <div className={`AbsContainer z-50 h-full flex items-center border-white ${isClosing ? 'closing' : 'opening'}`}>
           <div className='InnerRel'>
             <input
               type="text"
