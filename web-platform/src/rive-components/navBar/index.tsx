@@ -11,6 +11,7 @@ import {
 } from '@rive-app/react-canvas';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import "./navBar.css";
 
 export const RiveNavBar = () => {
   const router = useRouter();
@@ -91,13 +92,16 @@ export const RiveNavBar = () => {
       <RiveComponent style={{ width: '100%', height: '80px' }} />
 
       {isSearchOpen && (
-        <div className="absolute top-0 left-24 right-10 z-50 h-full flex items-center border-b-2 border-white">
-          <input
-            type="text"
-            placeholder="Search for event"
-            className="w-80 bg-transparent text-secondary placeholder-gray-300 outline-none"
-          />
+        <div className="AbsContainer z-50 h-full flex items-center border-white">
+          <div className='InnerRel'>
+            <input
+              type="text"
+              placeholder="Search for event"
+              className="theInput w-80 bg-transparent px-4 py-2 text-secondary placeholder-gray-300 outline-none"
+            />
+          </div>
         </div>
+        // null // AA TEST
       )}
     </div>
   );
