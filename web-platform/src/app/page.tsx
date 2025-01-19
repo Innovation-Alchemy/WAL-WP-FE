@@ -9,7 +9,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 // import { faApple, faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FORGOTPASSWORD_ROUTE, SINGUP_ROUTE } from '@/utils/navigation';
 import RepeatedLogo from '@/components/repeated-logo';
-
+import axios from 'axios';
 export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,36 +49,38 @@ export default function Home() {
     }
   
     try {
-      const response = await fetch(`${baseURL}/api/auth/login`, { // Use your actual base URL here
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post(`${baseURL}/api/auth/login`, {
+      email,
+      password,
+      }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       });
-  
-      const data = await response.json();
-  
-      if (!response.ok) {
-        setErrorMessage(data.message || 'An error occurred. Please try again.');
-        return;
-      }
-  
+    
+      const data = response.data;
+    
       // Store the token based on the "Remember Me" checkbox state
       if (isChecked) {
-        localStorage.setItem('token', data.token); // Persistent storage
+      localStorage.setItem('token', data.token); // Persistent storage
+      localStorage.setItem('userId', data.id); // Persistent storage
       } else {
-        sessionStorage.setItem('token', data.token); // Session-only storage
+      sessionStorage.setItem('token', data.token); // Session-only storage
+      sessionStorage.setItem('userId', data.id); // Session-only storage
       }
-  
+    
       // Redirect based on hobbies
       if (!data.data.hobbies) {
-        router.push('/hobbies');
+      router.push('/hobbies');
       } else {
-        router.push('/events');
+      router.push('/events');
       }
     } catch (error) {
-      setErrorMessage('An unexpected error occurred. Please try again.');
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(error.response?.data?.message || 'An unexpected error occurred. Please try again.');
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
     }
   };
 

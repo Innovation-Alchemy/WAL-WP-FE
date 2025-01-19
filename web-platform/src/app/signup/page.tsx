@@ -12,6 +12,7 @@ import GenderInput from '@/components/gender-input';
 import BirthdateInput from '@/components/birthdate-input';
 import PhoneNumberInput from '@/components/phonenumber-input';
 import { countryOptions } from '@/utils/country-codes';
+import axios from 'axios';
 
 const SignUp = () => {
   const router = useRouter();
@@ -69,19 +70,15 @@ const SignUp = () => {
       phone_number: `${countryCode}${phoneNumber}`,
     };
     try {
-      const response = await fetch(`${baseURL}/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+      const response = await axios.post(`${baseURL}/api/auth/register`, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setErrorMessage(data.message || 'An error occurred. Please try again.');
-        return;
+      if (response.status !== 200) {
+      setErrorMessage(response.data.message || 'An error occurred. Please try again.');
+      return;
       }
 
       // Redirect on success

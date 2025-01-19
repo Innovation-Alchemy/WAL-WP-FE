@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSection } from '../../utils/SectionContext';
 
 interface TicketCardProps {
   section: string;
@@ -10,13 +11,16 @@ interface TicketCardProps {
 }
 
 const TicketCard: React.FC<TicketCardProps> = ({
-  seats,
-  date,
-  startTime,
-  endTime,
-  totalPrice,
   section,
+  seats,
+  totalPrice,
 }) => {
+  const { sectionStates } = useSection(); // Access sectionStates to get s1Value and s2Value
+
+  const isStanding = section === 'S1' || section === 'S2'; // Check if the section is standing
+
+  const ticketCount = section === 'S1' ? sectionStates.s1Value : sectionStates.s2Value; // Get the correct count for standing tickets
+
   return (
     <div
       className="p-2 rounded-lg shadow-md w-full"
@@ -28,24 +32,12 @@ const TicketCard: React.FC<TicketCardProps> = ({
     >
       <div className="flex justify-between pb-2">
         <div className="flex flex-col w-1/3">
-          <p className="font-bold text-sm">Seats</p>
-          <div className="flex flex-wrap gap-1 text-sm opacity-50">
-            {seats.map((seat, index) => (
-              <span key={index}>{seat}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col ">
-          <p className="font-bold text-sm">Date</p>
-          <p className="text-sm opacity-50">{date}</p>
-        </div>
-
-        <div className="flex flex-col ">
-          <p className="font-bold text-sm">Time</p>
-          <p className="text-sm opacity-50">
-            {startTime} &rarr; {endTime}
-          </p>
+            <p className="font-bold text-sm">{section} - {isStanding ? 'Tickets' : 'Seats'}</p>
+          {/* <div className="flex flex-wrap gap-1 text-sm opacity-50 seat-list">
+            {isStanding
+              ? ticketCount // Display ticket count for standing sections
+              : seats.map((seat, index) => <span key={index}>{seat}</span>)}
+          </div> */}
         </div>
 
         <hr className="my-2 border-secondary opacity-50" />
