@@ -1,7 +1,15 @@
 'use client';
-import { useRive, Layout, Fit, decodeFont, useStateMachineInput, EventType, RiveEventType } from '@rive-app/react-canvas';
+import {
+  useRive,
+  Layout,
+  Fit,
+  decodeFont,
+  useStateMachineInput,
+  EventType,
+  RiveEventType,
+} from '@rive-app/react-canvas';
 import { useEffect } from 'react';
-import { useSection } from '../../utils/SectionContext';
+import { useSection } from '@/context/section-context';
 
 export const RiveTicketing: React.FC = () => {
   const { sectionStates, setSectionStates } = useSection(); // Access and update sectionStates
@@ -47,44 +55,60 @@ export const RiveTicketing: React.FC = () => {
 
   const onRiveEventReceived = (riveEvent: any) => {
     const eventData = riveEvent.data;
-  
-    if (eventData.type === RiveEventType.General && eventData.name === 'S1 Plus') {
+
+    if (
+      eventData.type === RiveEventType.General &&
+      eventData.name === 'S1 Plus'
+    ) {
       setSectionStates((prev) => {
         const updatedValue = prev.s1Value + 1; // Increment
-        if (rive) rive.setTextRunValue('seatCountRun1', updatedValue.toString());
+        if (rive)
+          rive.setTextRunValue('seatCountRun1', updatedValue.toString());
         return {
           ...prev,
           s1Value: updatedValue, // Update s1Value in state
         };
       });
     }
-  
-    if (eventData.type === RiveEventType.General && eventData.name === 'S1 Minus') {
+
+    if (
+      eventData.type === RiveEventType.General &&
+      eventData.name === 'S1 Minus'
+    ) {
       setSectionStates((prev) => {
         const updatedValue = Math.max(0, prev.s1Value - 1); // Decrement but not below 0
-        if (rive) rive.setTextRunValue('seatCountRun1', updatedValue.toString());
+        if (rive)
+          rive.setTextRunValue('seatCountRun1', updatedValue.toString());
         return {
           ...prev,
           s1Value: updatedValue, // Update s1Value in state
         };
       });
     }
-  
-    if (eventData.type === RiveEventType.General && eventData.name === 'S2 Plus') {
+
+    if (
+      eventData.type === RiveEventType.General &&
+      eventData.name === 'S2 Plus'
+    ) {
       setSectionStates((prev) => {
         const updatedValue = prev.s2Value + 1; // Increment
-        if (rive) rive.setTextRunValue('seatCountRun2', updatedValue.toString());
+        if (rive)
+          rive.setTextRunValue('seatCountRun2', updatedValue.toString());
         return {
           ...prev,
           s2Value: updatedValue, // Update s2Value in state
         };
       });
     }
-  
-    if (eventData.type === RiveEventType.General && eventData.name === 'S2 Minus') {
+
+    if (
+      eventData.type === RiveEventType.General &&
+      eventData.name === 'S2 Minus'
+    ) {
       setSectionStates((prev) => {
         const updatedValue = Math.max(0, prev.s2Value - 1); // Decrement but not below 0
-        if (rive) rive.setTextRunValue('seatCountRun2', updatedValue.toString());
+        if (rive)
+          rive.setTextRunValue('seatCountRun2', updatedValue.toString());
         return {
           ...prev,
           s2Value: updatedValue, // Update s2Value in state

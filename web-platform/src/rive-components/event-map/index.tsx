@@ -1,7 +1,14 @@
 'use client';
-import { useRive, Layout, Fit, decodeFont, EventType, RiveEventType } from '@rive-app/react-canvas';
+import {
+  useRive,
+  Layout,
+  Fit,
+  decodeFont,
+  EventType,
+  RiveEventType,
+} from '@rive-app/react-canvas';
 import { useEffect } from 'react';
-import { useSection } from '../../utils/SectionContext';
+import { useSection } from '@/context/section-context';
 
 export const RiveTicketingMap: React.FC = () => {
   const { setSectionStates } = useSection(); // Access the state updater from context
@@ -63,7 +70,7 @@ export const RiveTicketingMap: React.FC = () => {
         if (seatNumber) {
           let updatedSeats = [...prevState.seats];
           if (updatedSeats.includes(seatNumber)) {
-            updatedSeats = updatedSeats.filter(seat => seat !== seatNumber);
+            updatedSeats = updatedSeats.filter((seat) => seat !== seatNumber);
           } else {
             updatedSeats.push(seatNumber);
           }

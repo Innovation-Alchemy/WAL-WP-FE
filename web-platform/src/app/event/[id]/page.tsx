@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation'; // Updated hook for Next.js routing
+import { useRouter, useSearchParams } from 'next/navigation';
 import EventHero from '@/components/event-hero';
 import { RiveTicketingMap } from '@/rive-components/event-map';
 import { RiveTicketing } from '@/rive-components/event-map-tickets';
-import { SectionProvider, useSection } from '../../../utils/SectionContext';
+import { SectionProvider, useSection } from '@/context/section-context';
 import TicketCard from '@/components/tickets-card';
 import TotalPriceCard from '@/components/total-price-card';
 import EventSelect from '@/components/event-select';
@@ -15,6 +15,7 @@ import EventTags from '@/components/event-tags';
 import axios from 'axios';
 import EventDescription from '@/components/event-description';
 import { usePathname } from 'next/navigation';
+
 interface Ticket {
   section: string;
   seat: string;
@@ -26,13 +27,64 @@ interface Ticket {
 }
 
 const tickets: Ticket[] = [
-  { section: 'A', seat: 'A1', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 50 },
-  { section: 'A', seat: 'A2', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 50 },
-  { section: 'A', seat: 'A3', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 50 },
-  { section: 'A', seat: 'A4', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 50 },
-  { section: 'A', seat: 'A5', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 50 },
-  { section: 'S1', seat: '', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 40, count: 0 },
-  { section: 'S2', seat: '', date: '25-1', startTime: '6:00 PM', endTime: '8:00 PM', price: 30, count: 0 },
+  {
+    section: 'A',
+    seat: 'A1',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 50,
+  },
+  {
+    section: 'A',
+    seat: 'A2',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 50,
+  },
+  {
+    section: 'A',
+    seat: 'A3',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 50,
+  },
+  {
+    section: 'A',
+    seat: 'A4',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 50,
+  },
+  {
+    section: 'A',
+    seat: 'A5',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 50,
+  },
+  {
+    section: 'S1',
+    seat: '',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 40,
+    count: 0,
+  },
+  {
+    section: 'S2',
+    seat: '',
+    date: '25-1',
+    startTime: '6:00 PM',
+    endTime: '8:00 PM',
+    price: 30,
+    count: 0,
+  },
 ];
 // const event = {
 //   title: 'Dua Lipa',
@@ -71,7 +123,12 @@ const EventPageContent = () => {
     title: string;
     subtitle: string;
     tags: string[];
-    schedule: { date: string; day: string; startTimes: string[]; endTimes: string[] }[];
+    schedule: {
+      date: string;
+      day: string;
+      startTimes: string[];
+      endTimes: string[];
+    }[];
     address: string;
     description: string;
     backgroundImage: string;
@@ -84,38 +141,59 @@ const EventPageContent = () => {
 
     async function fetchEventDetails() {
       try {
-        const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-        const response = await axios.get(`https://wal-wp-be.onrender.com/api/events/${id}`, {
-          headers: {
-        Authorization: `Bearer ${token}`,
+        const token =
+          sessionStorage.getItem('token') || localStorage.getItem('token');
+        const response = await axios.get(
+          `https://wal-wp-be.onrender.com/api/events/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
         const eventData = response.data.data;
         console.log('eventData', event);
         // Transform date_time into schedule
         const dateTimeArray = JSON.parse(eventData.date_time);
-        const schedule = dateTimeArray.reduce((acc: any[], dateTime: string) => {
-          const [datePart, timePart] = dateTime.split('T');
-          const [startTime] = timePart ? timePart.split('-') : [''];
+        const schedule = dateTimeArray.reduce(
+          (acc: any[], dateTime: string) => {
+            const [datePart, timePart] = dateTime.split('T');
+            const [startTime] = timePart ? timePart.split('-') : [''];
 
-          const formattedDate = new Date(datePart).toLocaleDateString('en-GB');
-          const dayName = new Date(datePart).toLocaleDateString('en-GB', { weekday: 'long' });
-
-          const existingDate = acc.find((entry) => entry.date === formattedDate);
-          if (existingDate) {
-            existingDate.startTimes.push(new Date(`1970-01-01T${startTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-          } else {
-            acc.push({
-              date: formattedDate,
-              day: dayName,
-              startTimes: [
-          new Date(`1970-01-01T${startTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-              ],
+            const formattedDate = new Date(datePart).toLocaleDateString(
+              'en-GB',
+            );
+            const dayName = new Date(datePart).toLocaleDateString('en-GB', {
+              weekday: 'long',
             });
-          }
 
-          return acc;
-        }, []);
+            const existingDate = acc.find(
+              (entry) => entry.date === formattedDate,
+            );
+            if (existingDate) {
+              existingDate.startTimes.push(
+                new Date(`1970-01-01T${startTime}`).toLocaleTimeString(
+                  'en-US',
+                  { hour: '2-digit', minute: '2-digit' },
+                ),
+              );
+            } else {
+              acc.push({
+                date: formattedDate,
+                day: dayName,
+                startTimes: [
+                  new Date(`1970-01-01T${startTime}`).toLocaleTimeString(
+                    'en-US',
+                    { hour: '2-digit', minute: '2-digit' },
+                  ),
+                ],
+              });
+            }
+
+            return acc;
+          },
+          [],
+        );
 
         // Set the event state
         setEvent({
@@ -134,10 +212,12 @@ const EventPageContent = () => {
 
     fetchEventDetails();
   }, [id]);
-  
+
   const { sectionStates } = useSection(); // Access sectionStates from context
   const [filteredTickets, setFilteredTickets] = useState<Ticket[]>([]);
-  const [selectedDate, setSelectedDate] = useState(event?.schedule[0]?.date || '');
+  const [selectedDate, setSelectedDate] = useState(
+    event?.schedule[0]?.date || '',
+  );
   const [selectedTime, setSelectedTime] = useState(
     event?.schedule[0]?.startTimes[0] || '',
   );
@@ -184,45 +264,48 @@ const EventPageContent = () => {
   useEffect(() => {
     const seats = sectionStates.seats || [];
     const updatedTickets = tickets.filter(
-      ticket =>
+      (ticket) =>
         seats.includes(ticket.seat) || // Include seated tickets
         ticket.section === 'S1' || // Include standing sections
-        ticket.section === 'S2'
+        ticket.section === 'S2',
     );
     setFilteredTickets(updatedTickets);
   }, [sectionStates.seats]);
 
-  const groupedTickets = filteredTickets.reduce((acc: { [key: string]: any }, ticket) => {
-    const key = `${ticket.section}-${ticket.date}-${ticket.startTime}`;
-    if (!acc[key]) {
-      acc[key] = {
-        section: ticket.section,
-        seats: [],
-        date: ticket.date,
-        startTime: ticket.startTime,
-        endTime: ticket.endTime,
-        totalPrice: 0,
-      };
-    }
+  const groupedTickets = filteredTickets.reduce(
+    (acc: { [key: string]: any }, ticket) => {
+      const key = `${ticket.section}-${ticket.date}-${ticket.startTime}`;
+      if (!acc[key]) {
+        acc[key] = {
+          section: ticket.section,
+          seats: [],
+          date: ticket.date,
+          startTime: ticket.startTime,
+          endTime: ticket.endTime,
+          totalPrice: 0,
+        };
+      }
 
-    if (ticket.seat) {
-      // Only push seats for seated sections
-      acc[key].seats.push(ticket.seat);
-    }
+      if (ticket.seat) {
+        // Only push seats for seated sections
+        acc[key].seats.push(ticket.seat);
+      }
 
-    if (ticket.section === 'S1') {
-      // Calculate total price for S1
-      acc[key].totalPrice = sectionStates.s1Value * ticket.price;
-    } else if (ticket.section === 'S2') {
-      // Calculate total price for S2
-      acc[key].totalPrice = sectionStates.s2Value * ticket.price;
-    } else {
-      // Add price for seated tickets
-      acc[key].totalPrice += ticket.price;
-    }
+      if (ticket.section === 'S1') {
+        // Calculate total price for S1
+        acc[key].totalPrice = sectionStates.s1Value * ticket.price;
+      } else if (ticket.section === 'S2') {
+        // Calculate total price for S2
+        acc[key].totalPrice = sectionStates.s2Value * ticket.price;
+      } else {
+        // Add price for seated tickets
+        acc[key].totalPrice += ticket.price;
+      }
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {},
+  );
 
   const overallTotalPrice = Object.values(groupedTickets).reduce(
     (acc: number, group: any) => acc + group.totalPrice,
@@ -231,64 +314,67 @@ const EventPageContent = () => {
   console.log('event', event);
   return (
     <div className="flex flex-col min-h-screen bg-black">
-    {event && (
-      <EventHero
-        title={event.title}
-        subtitle={event.subtitle}
-        address={event.address}
-        backgroundImage={event.backgroundImage}
-        date={selectedDate}
-        time={selectedTime}
-        description={event.description}
-      />
-    )}
-
-    {event && event.schedule.length > 1 && (
-      <div className="flex items-center justify-center pt-12 w-full gap-4">
-        <EventSelect
-          options={event.schedule.map((schedule) => schedule.date)}
-          selectedOption={selectedDate}
-          onChange={handleDateChange}
+      {event && (
+        <EventHero
+          title={event.title}
+          subtitle={event.subtitle}
+          address={event.address}
+          backgroundImage={event.backgroundImage}
+          date={selectedDate}
+          time={selectedTime}
+          description={event.description}
         />
+      )}
 
-      {/* <EventSelect
+      {event && event.schedule.length > 1 && (
+        <div className="flex items-center justify-center pt-12 w-full gap-4">
+          <EventSelect
+            options={event.schedule.map((schedule) => schedule.date)}
+            selectedOption={selectedDate}
+            onChange={handleDateChange}
+          />
+
+          {/* <EventSelect
           options={getStartTimesForSelectedDate()}
           selectedOption={selectedTime}
           onChange={handleTimeChange}
-        />*/} 
+        />*/}
+        </div>
+      )}
+      <div className="flex flex-col lg:flex-row md:gap-8 justify-center px-8 pt-24 items-center">
+        <div className="flex items-center justify-center">
+          <RiveTicketingMap />
+        </div>
+        <div className="flex flex-col items-center justify-center gap-4 w-[280px] md:w-[380px]">
+          {Object.values(groupedTickets)
+            .filter(
+              (group) =>
+                group.section !== 'S1' && group.section !== 'S2' // Always show seated cards
+                  ? true
+                  : group.section === 'S1'
+                  ? sectionStates.s1Value > 0 // Show S1 only if count > 0
+                  : sectionStates.s2Value > 0, // Show S2 only if count > 0
+            )
+            .map((group: any, index) => (
+              <TicketCard
+                key={index}
+                section={group.section}
+                seats={group.seats}
+                date={group.date}
+                startTime={group.startTime}
+                endTime={group.endTime}
+                totalPrice={`${group.totalPrice}$`}
+              />
+            ))}
+          <TotalPriceCard totalPrice={`${overallTotalPrice}$`} />
+          <GoogleMap />
+
+          <div className="w-full items-center justify-center flex">
+            <RiveTicketing />
+          </div>
+        </div>
       </div>
-    )}
-    <div className="flex flex-col lg:flex-row md:gap-8 justify-center px-8 pt-12 items-center">
-      <div className="flex items-center justify-center">
-        <RiveTicketingMap />
-      </div>
-      <div className="flex flex-col items-center justify-center gap-4 w-[280px] md:w-[380px]">
-        <RiveTicketing />
-        {Object.values(groupedTickets)
-          .filter(
-            group =>
-              group.section !== 'S1' && group.section !== 'S2' // Always show seated cards
-                ? true
-                : group.section === 'S1'
-                ? sectionStates.s1Value > 0 // Show S1 only if count > 0
-                : sectionStates.s2Value > 0 // Show S2 only if count > 0
-          )
-          .map((group: any, index) => (
-            <TicketCard
-              key={index}
-              section={group.section}
-              seats={group.seats}
-              date={group.date}
-              startTime={group.startTime}
-              endTime={group.endTime}
-              totalPrice={`${group.totalPrice}$`}
-            />
-          ))}
-        <TotalPriceCard totalPrice={`${overallTotalPrice}$`} />
-        <GoogleMap />
-      </div>
-    </div>
-    <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row container mx-auto py-8 px-6 md:space-x-12">
+      <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row container mx-auto py-8 px-6 md:space-x-12">
         <div className="flex flex-col md:w-2/5 space-y-6">
           {event && <EventDescription description={event.description} />}
           <AboutOrganizer />
