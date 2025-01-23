@@ -59,17 +59,20 @@ body {
 }
 .eventCardMain {
   flex: none;
-  height: 400px;
+  height: 346px;
   position: relative;
   width: 260px;
+
 }
 .event-card {
-  height: 400px;
+  height: 160px;
   width: 260px;
+  z-index: 10;
 }
 
 .event-card.open {
   z-index: 30; /* Higher z-index when the card is open */
+  height: 346px;
 }
 
 .product-section {

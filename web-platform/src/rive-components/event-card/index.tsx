@@ -27,10 +27,10 @@ export const RiveEventCard = ({ id, title, description, date_time, image }: Rive
   const router = useRouter();
   const { RiveComponent, rive } = useRive({
     src: '/rive/events/card.riv',
-    artboard: 'Card',
+    artboard: 'Card 2',
     stateMachines: 'Card SM',
     layout: new Layout({
-      fit: Fit.Contain,
+      fit: Fit.Layout,
       alignment: Alignment.TopLeft,
     }),
     autoplay: true,
@@ -77,7 +77,7 @@ export const RiveEventCard = ({ id, title, description, date_time, image }: Rive
     : monthNames[uniqueMonths[0]];
 
   if(rive) rive.setTextRunValue('Month Run', monthRunValue);
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const uniqueDayNames: string[] = Array.from(new Set(dateObjects.map((date: Date) => dayNames[date.getDay()])));
   const dayNameRunValue: string = uniqueDayNames.length > 1 
     ? `${uniqueDayNames[0]} -> ${uniqueDayNames[uniqueDayNames.length - 1]}` 

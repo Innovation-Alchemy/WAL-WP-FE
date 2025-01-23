@@ -73,7 +73,7 @@ const EventCategory: React.FC<EventCategoryProps> = ({ title }) => {
       <div className="flex justify-between items-center w-full">
         <h1 className="text-xl font-bold text-primary px-4 md:px-8">{title}</h1>
 
-        <div className="flex items-center pr-4">
+        <div className="flex items-center pr-4 z-20">
           <button
             onClick={scrollLeft}
             className="

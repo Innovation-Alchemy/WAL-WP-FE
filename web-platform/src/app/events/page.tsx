@@ -16,9 +16,9 @@ const EventsPage = () => {
           <RiveHero />
           <div className="pt-24 pb-24 flex flex-col justify-between w-screen">
             <EventCategory title="Concerts" />
-            {/* <EventCategory title="Stand Up" />
+            <EventCategory title="Stand Up" />
             <EventCategory title="Festival" />
-            <EventCategory title="Racing" /> */}
+            <EventCategory title="Racing" />
           </div>
         </>
       )}
@@ -48,9 +48,9 @@ const EventsPage = () => {
           </div>
           <div className="lg:w-4/5">
             <EventCategory title="Concerts" />
-            {/* <EventCategory title="Stand Up" />
+            <EventCategory title="Stand Up" />
             <EventCategory title="Festival" />
-            <EventCategory title="Racing" /> */}
+            <EventCategory title="Racing" />
           </div>
         </div>
       )}
