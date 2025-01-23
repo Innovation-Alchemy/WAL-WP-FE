@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSection } from '../../utils/SectionContext';
+import { useSection } from '@/context/section-context';
 
 interface TicketCardProps {
   section: string;
@@ -19,7 +19,8 @@ const TicketCard: React.FC<TicketCardProps> = ({
 
   const isStanding = section === 'S1' || section === 'S2'; // Check if the section is standing
 
-  const ticketCount = section === 'S1' ? sectionStates.s1Value : sectionStates.s2Value; // Get the correct count for standing tickets
+  const ticketCount =
+    section === 'S1' ? sectionStates.s1Value : sectionStates.s2Value; // Get the correct count for standing tickets
 
   return (
     <div
@@ -32,7 +33,9 @@ const TicketCard: React.FC<TicketCardProps> = ({
     >
       <div className="flex justify-between pb-2">
         <div className="flex flex-col w-1/3">
-            <p className="font-bold text-sm">{section} - {isStanding ? 'Tickets' : 'Seats'}</p>
+          <p className="font-bold text-sm">
+            {section} - {isStanding ? 'Tickets' : 'Seats'}
+          </p>
           {/* <div className="flex flex-wrap gap-1 text-sm opacity-50 seat-list">
             {isStanding
               ? ticketCount // Display ticket count for standing sections

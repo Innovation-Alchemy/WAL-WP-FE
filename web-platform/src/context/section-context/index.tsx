@@ -16,7 +16,9 @@ interface SectionContextType {
 
 const SectionContext = createContext<SectionContextType | undefined>(undefined);
 
-export const SectionProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const SectionProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [sectionStates, setSectionStates] = useState<SectionStates>({
     section1: false,
     section2: false,

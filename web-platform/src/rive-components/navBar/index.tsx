@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useSearch } from '@/context/search-context';
-import { EVENT_ROUTE, STORE_ROUTE } from '@/utils/navigation';
+import { INDEX_ROUTE, STORE_ROUTE } from '@/utils/navigation';
 import {
   useRive,
   Layout,
@@ -12,7 +12,7 @@ import {
 } from '@rive-app/react-canvas';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import "./navBar.css";
+import './navBar.css';
 
 export const RiveNavBar = () => {
   const router = useRouter();
@@ -43,12 +43,12 @@ export const RiveNavBar = () => {
 
   const onRiveEventReceived = (riveEvent: any) => {
     const eventData = riveEvent.data;
-    // console.log('Event received:', eventData);
+    console.log('Event received:', eventData);
     if (
       eventData.type === RiveEventType.General &&
       eventData.name === 'Events'
     ) {
-      router.push(EVENT_ROUTE);
+      router.push(INDEX_ROUTE);
     } else if (
       eventData.type === RiveEventType.General &&
       eventData.name === 'Store'
@@ -93,8 +93,12 @@ export const RiveNavBar = () => {
       <RiveComponent style={{ width: '100%', height: '80px' }} />
 
       {isSearchOpen && (
-        <div className={`AbsContainer z-50 h-full flex items-center border-white ${isClosing ? 'closing' : 'opening'}`}>
-          <div className='InnerRel'>
+        <div
+          className={`AbsContainer z-50 h-full flex items-center border-white ${
+            isClosing ? 'closing' : 'opening'
+          }`}
+        >
+          <div className="InnerRel">
             <input
               type="text"
               placeholder="Search for event"
