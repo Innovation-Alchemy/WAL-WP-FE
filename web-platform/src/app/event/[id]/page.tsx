@@ -96,26 +96,22 @@ const EventPageContent = () => {
         const dateTimeArray = JSON.parse(eventData.date_time);
         const schedule = dateTimeArray.reduce((acc: any[], dateTime: string) => {
           const [datePart, timePart] = dateTime.split('T');
-          const [startTime, endTime] = timePart.split('T');
+          const [startTime] = timePart ? timePart.split('-') : [''];
 
           const formattedDate = new Date(datePart).toLocaleDateString('en-GB');
           const dayName = new Date(datePart).toLocaleDateString('en-GB', { weekday: 'long' });
 
           const existingDate = acc.find((entry) => entry.date === formattedDate);
           if (existingDate) {
-        existingDate.startTimes.push(new Date(`1970-01-01T${startTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-        existingDate.endTimes.push(new Date(`1970-01-01T${endTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+            existingDate.startTimes.push(new Date(`1970-01-01T${startTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
           } else {
-        acc.push({
-          date: formattedDate,
-          day: dayName,
-          startTimes: [
-            new Date(`1970-01-01T${startTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-          ],
-          endTimes: [
-            new Date(`1970-01-01T${endTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-          ],
-        });
+            acc.push({
+              date: formattedDate,
+              day: dayName,
+              startTimes: [
+          new Date(`1970-01-01T${startTime}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+              ],
+            });
           }
 
           return acc;
@@ -145,9 +141,9 @@ const EventPageContent = () => {
   const [selectedTime, setSelectedTime] = useState(
     event?.schedule[0]?.startTimes[0] || '',
   );
-  const [selectedEndTime, setSelectedEndTime] = useState(
-    event?.schedule[0]?.endTimes[0] || '',
-  );
+  // const [selectedEndTime, setSelectedEndTime] = useState(
+  //   event?.schedule[0]?.endTimes[0] || '',
+  // );
 
   const isSingleDate = event?.schedule.length === 1;
 
@@ -158,22 +154,22 @@ const EventPageContent = () => {
     );
     if (relatedSchedule) {
       setSelectedTime(relatedSchedule.startTimes[0] || '');
-      setSelectedEndTime(relatedSchedule.endTimes[0] || '');
+      // setSelectedEndTime(relatedSchedule.endTimes[0] || '');
     }
   };
 
-  const handleTimeChange = (time: string) => {
-    setSelectedTime(time);
+  // const handleTimeChange = (time: string) => {
+  //   setSelectedTime(time);
 
-    const relatedSchedule = event?.schedule.find(
-      (schedule) => schedule.date === selectedDate,
-    );
+  //   const relatedSchedule = event?.schedule.find(
+  //     (schedule) => schedule.date === selectedDate,
+  //   );
 
-    if (relatedSchedule) {
-      const timeIndex = relatedSchedule.startTimes.indexOf(time);
-      setSelectedEndTime(relatedSchedule.endTimes[timeIndex] || '');
-    }
-  };
+  //   if (relatedSchedule) {
+  //     const timeIndex = relatedSchedule.startTimes.indexOf(time);
+  //     // setSelectedEndTime(relatedSchedule.endTimes[timeIndex] || '');
+  //   }
+  // };
 
   const getStartTimesForSelectedDate = () => {
     return (
@@ -243,6 +239,7 @@ const EventPageContent = () => {
         backgroundImage={event.backgroundImage}
         date={selectedDate}
         time={selectedTime}
+        description={event.description}
       />
     )}
 
@@ -254,11 +251,11 @@ const EventPageContent = () => {
           onChange={handleDateChange}
         />
 
-        <EventSelect
+      {/* <EventSelect
           options={getStartTimesForSelectedDate()}
           selectedOption={selectedTime}
           onChange={handleTimeChange}
-        />
+        />*/} 
       </div>
     )}
     <div className="flex flex-col lg:flex-row md:gap-8 justify-center px-8 pt-12 items-center">

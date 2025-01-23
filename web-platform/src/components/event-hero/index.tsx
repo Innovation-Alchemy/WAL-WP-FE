@@ -14,6 +14,7 @@ interface EventHeroProps {
   backgroundImage: string;
   date: string;
   time: string;
+  description: string;
 }
 
 const EventHero: React.FC<EventHeroProps> = ({
@@ -23,6 +24,7 @@ const EventHero: React.FC<EventHeroProps> = ({
   backgroundImage,
   date,
   time,
+  description,
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -52,7 +54,7 @@ const EventHero: React.FC<EventHeroProps> = ({
         <div className="py-2">
           <p>{address}</p>
           <p>
-            {date} - {time}
+            {description}
           </p>
         </div>
       </div>
