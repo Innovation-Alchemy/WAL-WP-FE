@@ -1,0 +1,73 @@
+.AbsContainer {
+  --w: 210px;
+  width: var(--w);
+  height: 42px;
+  position: absolute;
+  right: 20px;
+  top: 40px;
+  transform: translate(calc(var(--w) * -1), -50%);
+  animation: slideVisible .4s ease-in-out;
+}
+
+.InnerRel {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.theInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #fff;
+}
+
+
+.AbsContainer.opening {
+  animation: slideVisible 0.4s ease-in-out forwards;
+}
+
+.AbsContainer.closing {
+  animation: slideHidden 0.4s ease-in-out forwards;
+}
+
+/* Keyframes */
+@keyframes slideVisible {
+  0% {
+    width: 0px;
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    width: var(--w);
+  }
+}
+
+@keyframes slideHidden {
+  0% {
+    width: var(--w);
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0;
+  }
+
+  100% {
+    width: 0px;
+    opacity: 0;
+  }
+}
+
+/* Media */
+@media screen and (max-width:999px) {
+  .AbsContainer {
+    right: -65px;
+    top: calc(80px + 10px);
+  }
+}

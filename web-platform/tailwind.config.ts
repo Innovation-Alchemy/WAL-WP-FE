@@ -11,13 +11,15 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        primary: '#E63946',
+        primary: '#e10032',
+        dark: '#c80032',
         secondary: '#FEF2F3',
+        hero: '#B3222D',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 } satisfies Config;

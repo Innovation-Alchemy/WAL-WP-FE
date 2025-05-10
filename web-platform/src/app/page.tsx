@@ -1,115 +1,61 @@
 'use client';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import InputField from '@/components/input-field';
-import Button from '@/components/button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faApple,
-  faFacebook,
-  faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
-import { FORGOTPASSWORD_ROUTE, SINGUP_ROUTE } from '@/utils/navigation';
-import RepeatedLogo from '@/components/repeated-logo';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import { RiveHero } from '../rive-components/hero';
+import EventCategory from '@/components/event-category';
+import { useSearch } from '@/context/search-context';
+import GenreFilter from '@/components/genre-filter';
+import RangeFilter from '@/components/range-filter';
 
-export default function Home() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
+const EventsPage = () => {
+  const { isSearchOpen } = useSearch();
 
   return (
-    <div className="flex flex-col lg:flex-row bg-black text-secondary">
-      <RepeatedLogo />
-
-      <div className="w-full lg:w-1/2 h-screen flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-20 xl:px-32 2xl:px-60">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6">
-          Log in to your Account
-        </h1>
-
-        <form>
-          <div className="mb-4">
-            <label className="block mb-2 font-bold text-sm md:text-base">
-              Email
-            </label>
-            <InputField type="email" placeholder="MoeElias@hotmail.com" />
+    <div className="flex flex-col min-h-screen">
+      {!isSearchOpen && (
+        <>
+          <RiveHero />
+          <div className="pt-24 pb-24 flex flex-col justify-between w-screen">
+            <EventCategory title="Concerts" />
+            <EventCategory title="Stand Up" />
+            <EventCategory title="Festival" />
+            <EventCategory title="Racing" />
           </div>
+        </>
+      )}
 
-          <div className="mb-4">
-            <label className="block mb-2 font-bold text-sm md:text-base">
-              Password
-            </label>
-            <InputField type="password" placeholder="Enter Your Password" />
+      {isSearchOpen && (
+        <div className="flex flex-col lg:flex-row pt-24 pb-24 gap-2 px-8 w-screen">
+          <div className="lg:w-1/5 flex flex-col gap-4">
+            <GenreFilter />
+
+            <RangeFilter
+              label="Time Range"
+              min={0}
+              max={24}
+              initialStart={6}
+              initialEnd={18}
+              unit="h"
+            />
+
+            <RangeFilter
+              label="Price Range"
+              min={0}
+              max={1000}
+              initialStart={200}
+              initialEnd={800}
+              unit="$"
+            />
           </div>
-
-          <div className="flex justify-between items-center mb-6 text-sm">
-            <div className="flex items-center">
-              <div
-                className={`w-5 h-5 flex items-center justify-center border-2 border-primary rounded-md cursor-pointer ${
-                  isChecked ? 'bg-transparent' : 'bg-transparent'
-                }`}
-                onClick={toggleCheckbox}
-              >
-                {isChecked && (
-                  <FontAwesomeIcon icon={faCheck} className="text-primary" />
-                )}
-              </div>
-              <label
-                className="ml-2 text-sm text-secondary"
-                onClick={toggleCheckbox}
-              >
-                Remember me
-              </label>
-            </div>
-            <Link
-              href={FORGOTPASSWORD_ROUTE}
-              className="text-primary underline"
-            >
-              Forgot Password?
-            </Link>
+          <div className="lg:w-4/5">
+            <EventCategory title="Concerts" />
+            <EventCategory title="Stand Up" />
+            <EventCategory title="Festival" />
+            <EventCategory title="Racing" />
           </div>
-
-          <Button text="Sign In" fullWidth />
-
-          <p className="mt-4 text-center">
-            don’t have an account?{' '}
-            <Link
-              href={SINGUP_ROUTE}
-              className="text-primary underline font-bold hover:text-red-400"
-            >
-              sign up
-            </Link>
-          </p>
-        </form>
-
-        <div className="flex justify-center mt-6 space-x-10">
-          <button className="flex items-center justify-center w-6 h-6 ">
-            <FontAwesomeIcon
-              icon={faGoogle}
-              className="text-secondary"
-              size="lg"
-            />
-          </button>
-
-          <button className="flex items-center justify-center w-6 h-6 ">
-            <FontAwesomeIcon
-              icon={faFacebook}
-              className="text-secondary"
-              size="lg"
-            />
-          </button>
-
-          <button className="flex items-center justify-center w-6 h-6 ">
-            <FontAwesomeIcon
-              icon={faApple}
-              className="text-secondary"
-              size="lg"
-            />
-          </button>
         </div>
-      </div>
+      )}
     </div>
   );
-}
+};
+
+export default EventsPage;

@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import Button from '@/components/button';
 import RepeatedLogo from '@/components/repeated-logo';
 import SelectableButton from '@/components/selectable-button';
-
+import { useRouter } from 'next/navigation';
+import { EVENT_ROUTE } from '@/utils/navigation';
+import axios from 'axios';
 const HOBBIES = [
   'Music',
   'Skiing',
@@ -28,7 +30,7 @@ const HOBBIES = [
 
 const HobbiesPage = () => {
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
-
+  const router = useRouter();
   const toggleHobby = (hobby: string) => {
     setSelectedHobbies((prev) =>
       prev.includes(hobby)
@@ -36,7 +38,28 @@ const HobbiesPage = () => {
         : [...prev, hobby],
     );
   };
-
+  const hobbiesToSend = [1,2,3,4,5];
+  const userId = typeof window !== 'undefined' ? localStorage.getItem('userId') || sessionStorage.getItem('userId') : null;
+  async function sendHobbies() {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') || sessionStorage.getItem('token') : null;
+    console.log(userId);
+    try {
+      await axios.post(
+      'https://wal-wp-be.onrender.com/api/hobbies/assign/' + userId,
+      {
+        hobbyIds: hobbiesToSend,
+      },
+      {
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+      router.push(EVENT_ROUTE);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div className="flex flex-col lg:flex-row bg-black text-secondary">
       <RepeatedLogo />
@@ -58,7 +81,7 @@ const HobbiesPage = () => {
           ))}
         </div>
 
-        <Button text="Continue" fullWidth />
+        <Button text="Continue" fullWidth onClick={() => sendHobbies()} />
       </div>
     </div>
   );

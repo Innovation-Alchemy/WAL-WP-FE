@@ -7,6 +7,7 @@ interface InputFieldProps {
   placeholder: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -14,6 +15,7 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   value,
   onChange,
+  disabled = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,12 +30,14 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="w-full px-4 py-3 bg-primary text-secondary placeholder-black rounded-md focus:outline-none focus:ring-2 focus:ring-red-300 text-sm md:text-base"
+        disabled={disabled}
+        className="w-full px-3 py-3 bg-primary text-secondary placeholder-black rounded-md focus:outline-none focus:ring-2 focus:ring-red-300 text-sm md:text-base"
       />
       {type === 'password' && (
         <button
           type="button"
           onClick={togglePasswordVisibility}
+          disabled={disabled}
           className="absolute top-1/2 right-4 transform -translate-y-1/2 text-secondary focus:outline-none"
         >
           <Image

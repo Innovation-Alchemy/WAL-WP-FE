@@ -1,0 +1,67 @@
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebook,
+  faInstagram,
+  faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
+const AboutOrganizer = () => {
+  return (
+    <div>
+      <p className="text-primary text py-2 font-bold">About Organizer</p>
+      <div className="flex space-x-2">
+        <div className="text-primary flex items-center justify-center relative w-[20px] h-[20px]">
+          <Image
+            src="/images/Logo.png"
+            alt="Organizer Logo"
+            className="rounded-full"
+            objectFit="cover"
+            fill
+          />
+        </div>
+        <p className="text-sm font-semibold">We Are Lebanon</p>
+      </div>
+
+      <p className="text-sm py-4 text-secondary">
+        Crafting unforgettable moments, We are Lebanon is a leading event
+        planning powerhouse known for transforming visions into reality. From
+        large-scale corporate galas to vibrant festivals and exclusive private
+        gatherings, we specialize in seamless execution, innovative design, and
+        unparalleled attention to detail. With a global network of partners and
+        a passion for storytelling through events, we ensure every occasion
+        leaves a lasting impression. Whether orchestrating logistics, curating
+        bespoke experiences, or designing immersive spaces, We are Lebanon turns
+        every event into a masterpiece.
+      </p>
+
+      <div className="flex space-x-4">
+        <Link href="https://facebook.com" aria-label="Facebook" target="_blank">
+          <FontAwesomeIcon icon={faFacebook} className="w-4 h-4" />
+        </Link>
+        <Link
+          href="https://instagram.com"
+          aria-label="Instagram"
+          target="_blank"
+        >
+          <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />
+        </Link>
+        <Link href="https://wa.me" aria-label="WhatsApp" target="_blank">
+          <FontAwesomeIcon icon={faWhatsapp} className="w-4 h-4" />
+        </Link>
+        <Link
+          href="mailto:info@wearelebanon.com"
+          aria-label="Email"
+          target="_blank"
+        >
+          <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default AboutOrganizer;

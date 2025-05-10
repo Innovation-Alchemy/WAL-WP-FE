@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
-import NavBar from '@/components/navbar';
+import { RiveNavBar } from '@/rive-components/navBar';
 import Footer from '@/components/footer';
+import { SearchProvider } from '@/context/search-context';
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -34,12 +35,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <div className="lg:flex lg:flex-col lg:h-[100vh]">
-          <NavBar />
-          <main className="lg:flex-grow lg:overflow-hidden">{children}</main>
-        </div>
+        <SearchProvider>
+          <div className="relative lg:flex lg:flex-cols">
+            <div className="hidden md:block md:absolute md:top-0 md:left-0 md:w-full z-50">
+              <RiveNavBar />
+            </div>
+            <main className="lg:flex-grow">{children}</main>
+          </div>
 
-        <Footer />
+          <Footer />
+
+          <div className="md:hidden bg-black fixed bottom-0 w-full z-30">
+            <RiveNavBar />
+          </div>
+        </SearchProvider>
       </body>
     </html>
   );
